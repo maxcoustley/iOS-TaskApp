@@ -11,6 +11,7 @@ import FirebaseFirestoreSwift
 class Tasks: NSObject, Codable {
     @DocumentID var id: String?
     var name: String?
-    var subtasks: [String] = []
+    //var subtasks: [String] = []
     
 }
+    

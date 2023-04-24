@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		850D2E3229F617950032E05B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 850D2E3129F617950032E05B /* GoogleService-Info.plist */; };
 		85224A5629F2395400A27813 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85224A5529F2395400A27813 /* AppDelegate.swift */; };
 		85224A5829F2395400A27813 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85224A5729F2395400A27813 /* SceneDelegate.swift */; };
 		85224A5D29F2395400A27813 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85224A5B29F2395400A27813 /* Main.storyboard */; };
@@ -19,12 +20,12 @@
 		85224A7529F2528A00A27813 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 85224A7429F2528A00A27813 /* FirebaseFirestoreSwift */; };
 		85224A7829F2552B00A27813 /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85224A7729F2552B00A27813 /* MulticastDelegate.swift */; };
 		85224A7C29F2556E00A27813 /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85224A7B29F2556E00A27813 /* DatabaseProtocol.swift */; };
-		85224A7E29F2593200A27813 /* GoogleService-Info-3.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85224A7D29F2593200A27813 /* GoogleService-Info-3.plist */; };
 		85224A8029F25EA900A27813 /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85224A7F29F25EA900A27813 /* FirebaseController.swift */; };
 		85224A8229F270DA00A27813 /* Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85224A8129F270DA00A27813 /* Tasks.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		850D2E3129F617950032E05B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Users/mcou0008/Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		85224A5229F2395400A27813 /* FIT3178-FinalMobileApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FIT3178-FinalMobileApp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85224A5529F2395400A27813 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		85224A5729F2395400A27813 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -36,7 +37,6 @@
 		85224A6B29F24D5D00A27813 /* AddTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
 		85224A7729F2552B00A27813 /* MulticastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MulticastDelegate.swift; path = ../../../../../../../Users/mcou0008/Downloads/MulticastDelegate.swift; sourceTree = "<group>"; };
 		85224A7B29F2556E00A27813 /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
-		85224A7D29F2593200A27813 /* GoogleService-Info-3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info-3.plist"; path = "../../../../../../Users/mcou0008/Downloads/GoogleService-Info-3.plist"; sourceTree = "<group>"; };
 		85224A7F29F25EA900A27813 /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
 		85224A8129F270DA00A27813 /* Tasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tasks.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -83,8 +83,8 @@
 				85224A6329F2395500A27813 /* Info.plist */,
 				85224A6929F2474F00A27813 /* DailyTaskTableViewController.swift */,
 				85224A6B29F24D5D00A27813 /* AddTaskViewController.swift */,
-				85224A7D29F2593200A27813 /* GoogleService-Info-3.plist */,
 				85224A8129F270DA00A27813 /* Tasks.swift */,
+				850D2E3129F617950032E05B /* GoogleService-Info.plist */,
 			);
 			path = "FIT3178-FinalMobileApp";
 			sourceTree = "<group>";
@@ -166,9 +166,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				85224A6229F2395500A27813 /* LaunchScreen.storyboard in Resources */,
+				850D2E3229F617950032E05B /* GoogleService-Info.plist in Resources */,
 				85224A5F29F2395500A27813 /* Assets.xcassets in Resources */,
 				85224A5D29F2395400A27813 /* Main.storyboard in Resources */,
-				85224A7E29F2593200A27813 /* GoogleService-Info-3.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
