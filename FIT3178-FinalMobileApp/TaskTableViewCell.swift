@@ -9,6 +9,7 @@ import UIKit
 
 class TaskTableViewCell: UITableViewCell {
     let checkbox = UIButton()
+    var isExpanded = false
         
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

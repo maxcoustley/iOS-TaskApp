@@ -12,6 +12,8 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener{
     let CELL_TASK = "taskCell"
     var listenerType: ListenerType = .task
     var allTasks: [Tasks] = []
+    var expandedRowIndex = -1
+    var cells: [TaskTableViewCell] = []
     
     weak var databaseController: DatabaseProtocol?
     
@@ -26,12 +28,18 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener{
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
         tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: "TaskTableViewCell")
+        tableView.register(ExpandedTaskTableViewCell.self, forCellReuseIdentifier: "ExpandedTaskTableViewCell")
         tableView.rowHeight = 44
+        
         
     }
     
     func onTaskChange(change: DatabaseChange, tasks: [Tasks]) {
         allTasks = tasks
+        for _ in 0..<allTasks.count {
+            let cell = TaskTableViewCell()
+            cells.append(cell)
+        }
         tableView.reloadData()
     }
     
@@ -63,15 +71,32 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener{
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let taskCell = tableView.dequeueReusableCell(withIdentifier: "TaskTableViewCell", for: indexPath) as! TaskTableViewCell
-        var content = taskCell.defaultContentConfiguration()
-        let task = allTasks[indexPath.row]
-        content.text = task.name    
-        taskCell.contentConfiguration = content
+        if indexPath.row == expandedRowIndex {
+            let taskCell = tableView.dequeueReusableCell(withIdentifier: "ExpandedTaskTableViewCell", for: indexPath) as! ExpandedTaskTableViewCell
+            // Configure the expanded cell
+            var content = taskCell.defaultContentConfiguration()
+            let task = allTasks[indexPath.row]
+            content.text = task.name
+            taskCell.contentConfiguration = content
+            
+            return taskCell
+        } else {
+            let taskCell = tableView.dequeueReusableCell(withIdentifier: "TaskTableViewCell", for: indexPath) as! TaskTableViewCell
+            // Configure the main cell
+            var content = taskCell.defaultContentConfiguration()
+            let task = allTasks[indexPath.row]
+            content.text = task.name
+            taskCell.contentConfiguration = content
+            
+            taskCell.checkbox.isSelected = false
+            
+            taskCell.isExpanded = cells[indexPath.row].isExpanded
+            
+            return taskCell
+            
+        }
         
-        taskCell.checkbox.isSelected = false
         
-        return taskCell
         
         
     }
@@ -99,7 +124,31 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener{
         }
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? TaskTableViewCell else {
+                return
+            }
         
+        if indexPath.row == expandedRowIndex {
+            expandedRowIndex = -1 // Collapse the cell
+        } else {
+            expandedRowIndex = indexPath.row // Expand the cell
+        }
+
+        cell.isExpanded.toggle()
+        
+        cells[indexPath.row].isExpanded.toggle()
+        
+        tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == expandedRowIndex && cells[indexPath.row].isExpanded {
+            // Return the expanded height
+            return 200
+        } else {
+            // Return the collapsed height
+            return 44
+        }
     }
     
     func displayMessage(title: String, message: String) {
