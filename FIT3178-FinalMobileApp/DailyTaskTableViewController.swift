@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DailyTaskTableViewController: UITableViewController, DatabaseListener {
+class DailyTaskTableViewController: UITableViewController, DatabaseListener{
     let SECTION_TASK = 0;
     let CELL_TASK = "taskCell"
     var listenerType: ListenerType = .task
@@ -25,6 +25,9 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
+        tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: "TaskTableViewCell")
+        tableView.rowHeight = 44
+        
     }
     
     func onTaskChange(change: DatabaseChange, tasks: [Tasks]) {
@@ -60,11 +63,13 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener {
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let taskCell = tableView.dequeueReusableCell(withIdentifier: CELL_TASK, for: indexPath)
+        let taskCell = tableView.dequeueReusableCell(withIdentifier: "TaskTableViewCell", for: indexPath) as! TaskTableViewCell
         var content = taskCell.defaultContentConfiguration()
         let task = allTasks[indexPath.row]
-        content.text = task.name
+        content.text = task.name    
         taskCell.contentConfiguration = content
+        
+        taskCell.checkbox.isSelected = false
         
         return taskCell
         

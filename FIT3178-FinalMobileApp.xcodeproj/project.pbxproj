@@ -22,6 +22,9 @@
 		85224A7C29F2556E00A27813 /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85224A7B29F2556E00A27813 /* DatabaseProtocol.swift */; };
 		85224A8029F25EA900A27813 /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85224A7F29F25EA900A27813 /* FirebaseController.swift */; };
 		85224A8229F270DA00A27813 /* Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85224A8129F270DA00A27813 /* Tasks.swift */; };
+		858D665229F76AC2005B5A35 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858D665129F76AC2005B5A35 /* TaskTableViewCell.swift */; };
+		858D665429F77559005B5A35 /* checkbox-unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 858D665329F77559005B5A35 /* checkbox-unchecked.png */; };
+		858D665629F77563005B5A35 /* checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 858D665529F77563005B5A35 /* checkbox-checked.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +42,9 @@
 		85224A7B29F2556E00A27813 /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
 		85224A7F29F25EA900A27813 /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
 		85224A8129F270DA00A27813 /* Tasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tasks.swift; sourceTree = "<group>"; };
+		858D665129F76AC2005B5A35 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
+		858D665329F77559005B5A35 /* checkbox-unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkbox-unchecked.png"; path = "../../../../../../Users/mcou0008/Downloads/checkbox-unchecked.png"; sourceTree = "<group>"; };
+		858D665529F77563005B5A35 /* checkbox-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkbox-checked.png"; path = "../../../../../../Users/mcou0008/Downloads/checkbox-checked.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +91,9 @@
 				85224A6B29F24D5D00A27813 /* AddTaskViewController.swift */,
 				85224A8129F270DA00A27813 /* Tasks.swift */,
 				850D2E3129F617950032E05B /* GoogleService-Info.plist */,
+				858D665129F76AC2005B5A35 /* TaskTableViewCell.swift */,
+				858D665329F77559005B5A35 /* checkbox-unchecked.png */,
+				858D665529F77563005B5A35 /* checkbox-checked.png */,
 			);
 			path = "FIT3178-FinalMobileApp";
 			sourceTree = "<group>";
@@ -167,8 +176,10 @@
 			files = (
 				85224A6229F2395500A27813 /* LaunchScreen.storyboard in Resources */,
 				850D2E3229F617950032E05B /* GoogleService-Info.plist in Resources */,
+				858D665629F77563005B5A35 /* checkbox-checked.png in Resources */,
 				85224A5F29F2395500A27813 /* Assets.xcassets in Resources */,
 				85224A5D29F2395400A27813 /* Main.storyboard in Resources */,
+				858D665429F77559005B5A35 /* checkbox-unchecked.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,6 +192,7 @@
 			files = (
 				85224A8029F25EA900A27813 /* FirebaseController.swift in Sources */,
 				85224A7C29F2556E00A27813 /* DatabaseProtocol.swift in Sources */,
+				858D665229F76AC2005B5A35 /* TaskTableViewCell.swift in Sources */,
 				85224A5629F2395400A27813 /* AppDelegate.swift in Sources */,
 				85224A7829F2552B00A27813 /* MulticastDelegate.swift in Sources */,
 				85224A8229F270DA00A27813 /* Tasks.swift in Sources */,
