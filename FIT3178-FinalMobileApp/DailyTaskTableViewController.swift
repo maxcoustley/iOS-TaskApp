@@ -124,9 +124,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener{
         }
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? TaskTableViewCell else {
-                return
-            }
+    
         
         if indexPath.row == expandedRowIndex {
             expandedRowIndex = -1 // Collapse the cell
@@ -134,7 +132,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener{
             expandedRowIndex = indexPath.row // Expand the cell
         }
 
-        cell.isExpanded.toggle()
+        
         
         cells[indexPath.row].isExpanded.toggle()
         
