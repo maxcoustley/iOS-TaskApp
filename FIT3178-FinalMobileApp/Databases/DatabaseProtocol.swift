@@ -29,14 +29,14 @@ enum ListenerType {
 
 protocol DatabaseListener: AnyObject {
     var listenerType: ListenerType {get set}
-    func onTaskChange(change: DatabaseChange, tasks: [Tasks])
+    func onTaskChange(change: DatabaseChange, tasks: [DailyTask])
 }
 
 protocol DatabaseProtocol: AnyObject {
     func cleanup()
     func addListener(listener: DatabaseListener)
     func removeListener(listener: DatabaseListener)
-    func addTask(name: String) -> Tasks
-    func deleteTask(task: Tasks)
+    func addTask(name: String, check: Bool) -> DailyTask
+    func deleteTask(task: DailyTask)
     
 }

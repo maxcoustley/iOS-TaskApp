@@ -11,7 +11,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener{
     let SECTION_TASK = 0;
     let CELL_TASK = "taskCell"
     var listenerType: ListenerType = .task
-    var allTasks: [Tasks] = []
+    var allTasks: [DailyTask] = []
     var expandedRowIndex = -1
     var cells: [TaskTableViewCell] = []
     
@@ -34,7 +34,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener{
         
     }
     
-    func onTaskChange(change: DatabaseChange, tasks: [Tasks]) {
+    func onTaskChange(change: DatabaseChange, tasks: [DailyTask]) {
         allTasks = tasks
         for _ in 0..<allTasks.count {
             let cell = TaskTableViewCell()
@@ -88,7 +88,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener{
             content.text = task.name
             taskCell.contentConfiguration = content
             
-            taskCell.checkbox.isSelected = false
+            taskCell.checkbox.isSelected = task.check ?? false
             
             taskCell.isExpanded = cells[indexPath.row].isExpanded
             

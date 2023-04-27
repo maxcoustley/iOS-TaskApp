@@ -21,7 +21,7 @@
 		85224A7829F2552B00A27813 /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85224A7729F2552B00A27813 /* MulticastDelegate.swift */; };
 		85224A7C29F2556E00A27813 /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85224A7B29F2556E00A27813 /* DatabaseProtocol.swift */; };
 		85224A8029F25EA900A27813 /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85224A7F29F25EA900A27813 /* FirebaseController.swift */; };
-		85224A8229F270DA00A27813 /* Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85224A8129F270DA00A27813 /* Tasks.swift */; };
+		85224A8229F270DA00A27813 /* DailyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85224A8129F270DA00A27813 /* DailyTask.swift */; };
 		858D665229F76AC2005B5A35 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858D665129F76AC2005B5A35 /* TaskTableViewCell.swift */; };
 		858D665429F77559005B5A35 /* checkbox-unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 858D665329F77559005B5A35 /* checkbox-unchecked.png */; };
 		858D665629F77563005B5A35 /* checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 858D665529F77563005B5A35 /* checkbox-checked.png */; };
@@ -42,7 +42,7 @@
 		85224A7729F2552B00A27813 /* MulticastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MulticastDelegate.swift; path = ../../../../../../../Users/mcou0008/Downloads/MulticastDelegate.swift; sourceTree = "<group>"; };
 		85224A7B29F2556E00A27813 /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
 		85224A7F29F25EA900A27813 /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
-		85224A8129F270DA00A27813 /* Tasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tasks.swift; sourceTree = "<group>"; };
+		85224A8129F270DA00A27813 /* DailyTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTask.swift; sourceTree = "<group>"; };
 		858D665129F76AC2005B5A35 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		858D665329F77559005B5A35 /* checkbox-unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkbox-unchecked.png"; path = "../../../../../../Users/mcou0008/Downloads/checkbox-unchecked.png"; sourceTree = "<group>"; };
 		858D665529F77563005B5A35 /* checkbox-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkbox-checked.png"; path = "../../../../../../Users/mcou0008/Downloads/checkbox-checked.png"; sourceTree = "<group>"; };
@@ -91,7 +91,7 @@
 				85224A6329F2395500A27813 /* Info.plist */,
 				85224A6929F2474F00A27813 /* DailyTaskTableViewController.swift */,
 				85224A6B29F24D5D00A27813 /* AddTaskViewController.swift */,
-				85224A8129F270DA00A27813 /* Tasks.swift */,
+				85224A8129F270DA00A27813 /* DailyTask.swift */,
 				850D2E3129F617950032E05B /* GoogleService-Info.plist */,
 				858D665129F76AC2005B5A35 /* TaskTableViewCell.swift */,
 				858D665729F77C7A005B5A35 /* ExpandedTaskTableViewCell.swift */,
@@ -199,7 +199,7 @@
 				858D665829F77C7A005B5A35 /* ExpandedTaskTableViewCell.swift in Sources */,
 				85224A5629F2395400A27813 /* AppDelegate.swift in Sources */,
 				85224A7829F2552B00A27813 /* MulticastDelegate.swift in Sources */,
-				85224A8229F270DA00A27813 /* Tasks.swift in Sources */,
+				85224A8229F270DA00A27813 /* DailyTask.swift in Sources */,
 				85224A6A29F2474F00A27813 /* DailyTaskTableViewController.swift in Sources */,
 				85224A5829F2395400A27813 /* SceneDelegate.swift in Sources */,
 				85224A6C29F24D5D00A27813 /* AddTaskViewController.swift in Sources */,

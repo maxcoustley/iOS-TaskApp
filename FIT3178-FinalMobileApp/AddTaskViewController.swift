@@ -43,7 +43,7 @@ class AddTaskViewController: UIViewController {
             return
         }
         else{
-            let _ = databaseController?.addTask(name: name)
+            let _ = databaseController?.addTask(name: name, check: false)
             navigationController?.popViewController(animated: true)
         }
     }

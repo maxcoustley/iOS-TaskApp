@@ -8,9 +8,10 @@
 import UIKit
 import FirebaseFirestoreSwift
 
-class Tasks: NSObject, Codable {
+class DailyTask: NSObject, Codable {
     @DocumentID var id: String?
     var name: String?
+    var check: Bool?
     //var subtasks: [String] = []
     
 }

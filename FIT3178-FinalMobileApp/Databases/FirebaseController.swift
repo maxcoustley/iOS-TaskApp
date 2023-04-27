@@ -11,18 +11,20 @@ import FirebaseFirestoreSwift
 
 
 class FirebaseController: NSObject, DatabaseProtocol {
+    
+    
     var listeners = MulticastDelegate<DatabaseListener>()
     var authController: Auth
     var database: Firestore
     var tasksRef: CollectionReference?
     var currentUser: FirebaseAuth.User?
-    var taskList: [Tasks] = []
+    var taskList: [DailyTask] = []
     
     override init(){
         FirebaseApp.configure()
         authController = Auth.auth()
         database = Firestore.firestore()
-        taskList = [Tasks]()
+        taskList = [DailyTask]()
         super.init()
         
         Task {
@@ -52,10 +54,10 @@ class FirebaseController: NSObject, DatabaseProtocol {
         listeners.removeDelegate(listener)
     }
     
-    func addTask(name: String) -> Tasks {
-        let task = Tasks()
+    func addTask(name: String, check: Bool) -> DailyTask {
+        let task = DailyTask()
         task.name = name
-        
+        task.check = check
         do {
             if let taskRef = try tasksRef?.addDocument(from: task) {
                 task.id = taskRef.documentID
@@ -66,7 +68,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         return task
     }
     
-    func deleteTask(task: Tasks) {
+    func deleteTask(task: DailyTask) {
         if let taskID = task.id {
             tasksRef?.document(taskID).delete()
         }
@@ -86,9 +88,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
     
     func parseTasksSnapshot(snapshot: QuerySnapshot){
         snapshot.documentChanges.forEach { (change) in
-            var parsedTask: Tasks?
+            var parsedTask: DailyTask?
             do {
-                parsedTask = try change.document.data(as: Tasks.self)
+                parsedTask = try change.document.data(as: DailyTask.self)
             } catch {
                 print("Unable to decode task. Is the task malformed?")
                 return
