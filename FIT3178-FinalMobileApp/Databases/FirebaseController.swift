@@ -68,6 +68,14 @@ class FirebaseController: NSObject, DatabaseProtocol {
         return task
     }
     
+    func checkTask(taskRow: Int, newCheck: Bool) {
+        let task = taskList[taskRow]
+        task.check = newCheck
+        if let taskID = task.id {
+            tasksRef?.document(taskID).updateData(["check": newCheck])
+        }
+    }
+    
     func deleteTask(task: DailyTask) {
         if let taskID = task.id {
             tasksRef?.document(taskID).delete()

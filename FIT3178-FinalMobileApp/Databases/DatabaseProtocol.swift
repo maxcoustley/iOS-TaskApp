@@ -38,5 +38,6 @@ protocol DatabaseProtocol: AnyObject {
     func removeListener(listener: DatabaseListener)
     func addTask(name: String, check: Bool) -> DailyTask
     func deleteTask(task: DailyTask)
+    func checkTask(taskRow: Int, newCheck: Bool)
     
 }

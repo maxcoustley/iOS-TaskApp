@@ -10,6 +10,9 @@ import UIKit
 class TaskTableViewCell: UITableViewCell {
     let checkbox = UIButton()
     var isExpanded = false
+    
+    weak var databaseController: DatabaseProtocol?
+    
         
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -21,6 +24,9 @@ class TaskTableViewCell: UITableViewCell {
         checkbox.setImage(UIImage(named: "checkbox-unchecked.png"), for: .normal)
         
         accessoryView = checkbox
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,6 +36,15 @@ class TaskTableViewCell: UITableViewCell {
     @objc func checkboxTapped(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         checkbox.setImage(UIImage(named: isSelected ? "checkbox-checked.png" : "checkbox-unchecked.png"), for: .normal)
+        guard let tableView = self.superview as? UITableView else {
+            return
+        }
+        let buttonOrigin = sender.convert(CGPoint.zero, to: tableView)
+        guard let indexPath = tableView.indexPathForRow(at: buttonOrigin), let cell = tableView.cellForRow(at: indexPath) else {
+                return
+        }
+        let row = indexPath.row
+        databaseController?.checkTask(taskRow: row, newCheck: sender.isSelected)
     }
 
     override func awakeFromNib() {
