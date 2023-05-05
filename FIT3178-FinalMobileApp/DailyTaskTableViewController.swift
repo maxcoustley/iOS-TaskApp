@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DailyTaskTableViewController: UITableViewController, DatabaseListener{
+class DailyTaskTableViewController: UITableViewController, DatabaseListener, TaskCellDelegate{
     let SECTION_TASK = 0;
     let CELL_TASK = "taskCell"
     var listenerType: ListenerType = .task
@@ -41,6 +41,15 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener{
             cells.append(cell)
         }
         tableView.reloadData()
+    }
+    
+    func didTapButtonInCell(_ cell: TaskTableViewCell, button: UIButton) {
+        editButtonTapped(button)
+    }
+        
+    
+    @IBAction func editButtonTapped(_ sender: UIButton){
+        performSegue(withIdentifier: "editTaskSegue", sender: self)
     }
     
     // MARK: - Table view data source
@@ -179,6 +188,11 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "editTaskSegue" {
+            if let destinationVC = segue.destination as? EditTaskViewController {
+                
+            }
+        }
     }
 
 

@@ -10,8 +10,9 @@ import UIKit
 class TaskTableViewCell: UITableViewCell {
     let checkbox = UIButton()
     var isExpanded = false
-    
+    var editButton: UIButton!
     weak var databaseController: DatabaseProtocol?
+    weak var delegate: TaskCellDelegate?
     
         
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -22,8 +23,34 @@ class TaskTableViewCell: UITableViewCell {
         checkbox.addTarget(self, action: #selector(checkboxTapped(_:)), for: .touchUpInside)
         checkbox.setImage(UIImage(named: "checkbox-checked.png"), for: .selected)
         checkbox.setImage(UIImage(named: "checkbox-unchecked.png"), for: .normal)
+        contentView.addSubview(checkbox)
         
-        accessoryView = checkbox
+        editButton = UIButton(type: .system)
+        editButton.frame = CGRect(x: 40, y: 0, width: 30, height: 30)
+        editButton.setTitle("Edit", for: .normal)
+        editButton.addTarget(self, action: #selector(editButtonTapped(_:)), for: .touchUpInside)
+        editButton.isHidden = false
+        editButton.clipsToBounds = false
+        contentView.addSubview(editButton)
+        
+        editButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            editButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            editButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        ])
+        
+        
+        let taskAccessoryView = UIView(frame:   CGRect(x: 0, y: 0, width: 150, height: 44))
+        let buttonPadding: CGFloat = 10
+        let totalWidth = checkbox.frame.width + buttonPadding + editButton.frame.width
+        checkbox.frame.origin = CGPoint(x: (taskAccessoryView.bounds.width - totalWidth) / 2, y: (taskAccessoryView.bounds.height - checkbox.frame.height) / 2)
+        editButton.frame.origin = CGPoint(x: checkbox.frame.maxX + buttonPadding, y: (taskAccessoryView.bounds.height - editButton.frame.height) / 2)
+        
+        taskAccessoryView.addSubview(checkbox)
+        taskAccessoryView.addSubview(editButton)
+        
+        accessoryView = taskAccessoryView
+                                       
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
@@ -31,6 +58,34 @@ class TaskTableViewCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        
+        editButton = UIButton(type: .system)
+        editButton.setTitle("Edit", for: .normal)
+        editButton.addTarget(self, action: #selector(editButtonTapped(_:)), for: .touchUpInside)
+        contentView.addSubview(editButton)
+        accessoryView = editButton
+        editButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            editButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            editButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        ])
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        // Set the frame of the edit button
+        let buttonWidth: CGFloat = 60.0
+        let buttonHeight: CGFloat = 30.0
+        let buttonX = contentView.frame.width - buttonWidth - 20.0
+        let buttonY = (contentView.frame.height - buttonHeight) / 2.0
+        editButton.frame = CGRect(x: buttonX, y: buttonY, width: buttonWidth, height: buttonHeight)
+    }
+    
+    @objc func editButtonTapped(_ sender: UIButton) {
+        delegate?.didTapButtonInCell(self, button: sender)
+        
+
     }
     
     @objc func checkboxTapped(_ sender: UIButton) {
@@ -39,12 +94,11 @@ class TaskTableViewCell: UITableViewCell {
         guard let tableView = self.superview as? UITableView else {
             return
         }
-        let buttonOrigin = sender.convert(CGPoint.zero, to: tableView)
-        guard let indexPath = tableView.indexPathForRow(at: buttonOrigin), let cell = tableView.cellForRow(at: indexPath) else {
+        let button = sender.convert(CGPoint.zero, to: tableView)
+        guard let indexPath = tableView.indexPathForRow(at: button), let _ = tableView.cellForRow(at: indexPath) else {
                 return
         }
-        let row = indexPath.row
-        databaseController?.checkTask(taskRow: row, newCheck: sender.isSelected)
+        databaseController?.checkTask(taskRow: indexPath.row, newCheck: sender.isSelected)
     }
 
     override func awakeFromNib() {
@@ -59,5 +113,9 @@ class TaskTableViewCell: UITableViewCell {
     }
     
     
+    
 
+}
+protocol TaskCellDelegate: AnyObject {
+    func didTapButtonInCell(_ cell: TaskTableViewCell, button: UIButton)
 }

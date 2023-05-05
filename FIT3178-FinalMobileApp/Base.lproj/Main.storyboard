@@ -17,15 +17,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="taskCell" textLabel="x7w-A6-GRD" style="IBUITableViewCellStyleDefault" id="o5Q-Li-s6G" customClass="TaskTableViewCell" customModule="FIT3178_FinalMobileApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="taskCell" textLabel="x7w-A6-GRD" rowHeight="68" style="IBUITableViewCellStyleDefault" id="o5Q-Li-s6G" customClass="TaskTableViewCell" customModule="FIT3178_FinalMobileApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="50" width="393" height="68"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="o5Q-Li-s6G" id="2g3-AC-Neh">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="68"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="x7w-A6-GRD">
-                                            <rect key="frame" x="20" y="0.0" width="353" height="43.666667938232422"/>
+                                            <rect key="frame" x="20" y="0.0" width="353" height="68"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                             <nil key="textColor"/>
@@ -36,6 +36,9 @@
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" button="YES"/>
                                 </accessibility>
+                                <connections>
+                                    <segue destination="DVh-VO-jVd" kind="show" id="gpZ-80-qsZ"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -43,6 +46,7 @@
                             <outlet property="delegate" destination="9RQ-Lw-am9" id="pDI-HS-WdL"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Daily Task List" id="WC7-bh-RwY">
                         <leftBarButtonItems>
                             <barButtonItem title="Item" image="calendar" catalog="system" id="AJE-n6-Fwk"/>
@@ -54,11 +58,11 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m7K-4D-6bz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="950.38167938931292" y="-52.112676056338032"/>
+            <point key="canvasLocation" x="987" y="-52"/>
         </scene>
         <!--Add Task-->
         <scene sceneID="cFj-GD-swb">
@@ -110,7 +114,47 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WkO-Ri-xrq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1896.9465648854962" y="-46.478873239436624"/>
+            <point key="canvasLocation" x="1906" y="-389"/>
+        </scene>
+        <!--Edit Task-->
+        <scene sceneID="o9b-G4-nYR">
+            <objects>
+                <viewController storyboardIdentifier="EditTaskViewController" title="Edit Task" id="DVh-VO-jVd" customClass="EditTaskViewController" customModule="FIT3178_FinalMobileApp" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hp6-SC-Yfy">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Task Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZCS-zK-vrx">
+                                <rect key="frame" x="24" y="123" width="353" height="20.333333333333371"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KtI-CM-WJo">
+                                <rect key="frame" x="24" y="165" width="353" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f2B-ij-gZX">
+                                <rect key="frame" x="24" y="226" width="353" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Edit Task"/>
+                                <connections>
+                                    <action selector="createTask:" destination="Gc4-QH-cSJ" eventType="touchUpInside" id="mYo-jg-WJB"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="itC-pk-DjM"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Edit Task" id="EcA-na-e0v"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CCU-MM-Ld4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1905" y="275"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rui-qa-NnP">

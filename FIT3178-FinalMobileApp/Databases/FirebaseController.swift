@@ -100,7 +100,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
             do {
                 parsedTask = try change.document.data(as: DailyTask.self)
             } catch {
-                print("Unable to decode task. Is the task malformed?")
+                print("Unable to decode task. Is the task malformed? \(error)")
                 return
             }
             guard let task = parsedTask else {
