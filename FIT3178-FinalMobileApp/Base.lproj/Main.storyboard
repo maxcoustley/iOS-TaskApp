@@ -11,7 +11,7 @@
         <!--Daily Task List-->
         <scene sceneID="lSU-Wx-oPF">
             <objects>
-                <tableViewController id="9RQ-Lw-am9" customClass="DailyTaskTableViewController" customModule="FIT3178_FinalMobileApp" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="DailyTaskTableViewController" id="9RQ-Lw-am9" customClass="DailyTaskTableViewController" customModule="FIT3178_FinalMobileApp" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="L1h-eE-uv0">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -37,7 +37,7 @@
                                     <accessibilityTraits key="traits" button="YES"/>
                                 </accessibility>
                                 <connections>
-                                    <segue destination="DVh-VO-jVd" kind="show" id="gpZ-80-qsZ"/>
+                                    <segue destination="DVh-VO-jVd" kind="show" identifier="editTaskSegue" trigger="accessoryAction" id="eke-gp-Mpu"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

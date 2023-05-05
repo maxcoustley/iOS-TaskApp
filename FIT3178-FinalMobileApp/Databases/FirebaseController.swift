@@ -61,6 +61,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         do {
             if let taskRef = try tasksRef?.addDocument(from: task) {
                 task.id = taskRef.documentID
+                
             }
         } catch {
             print("Failed to serialize task")
@@ -84,6 +85,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     
     func setupTaskListener() {
         tasksRef = database.collection("tasks")
+        
         tasksRef?.addSnapshotListener(){
             (querySnapshot, error) in
             guard let querySnapshot = querySnapshot else {
@@ -108,7 +110,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 return;
             }
             if change.type == .added {
-                taskList.insert(task, at: Int(change.newIndex))
+                taskList.insert(task, at: Int(taskList.count))
             }
             else if change.type == .modified {
                 taskList[Int(change.oldIndex)] = task

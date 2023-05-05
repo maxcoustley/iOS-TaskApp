@@ -82,11 +82,14 @@ class TaskTableViewCell: UITableViewCell {
         editButton.frame = CGRect(x: buttonX, y: buttonY, width: buttonWidth, height: buttonHeight)
     }
     
-    @objc func editButtonTapped(_ sender: UIButton) {
-        delegate?.didTapButtonInCell(self, button: sender)
-        
-
-    }
+     @objc func editButtonTapped(_ sender: UIButton) {
+         let storyboard = UIStoryboard(name: "Main", bundle: nil)
+         let dailyTaskTableViewController = storyboard.instantiateViewController(withIdentifier: "DailyTaskTableViewController")
+         dailyTaskTableViewController.performSegue(withIdentifier: "editTaskSegue", sender: nil)
+         delegate?.didTapButtonInCell(self, button: sender)
+     }
+     
+    
     
     @objc func checkboxTapped(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected

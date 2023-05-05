@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import MobileCoreServices
 
-class DailyTaskTableViewController: UITableViewController, DatabaseListener, TaskCellDelegate{
+class DailyTaskTableViewController: UITableViewController, DatabaseListener, TaskCellDelegate, UITableViewDragDelegate{
+    
+    
     let SECTION_TASK = 0;
     let CELL_TASK = "taskCell"
     var listenerType: ListenerType = .task
@@ -31,6 +34,9 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, Tas
         tableView.register(ExpandedTaskTableViewCell.self, forCellReuseIdentifier: "ExpandedTaskTableViewCell")
         tableView.rowHeight = 44
         
+        tableView.dragInteractionEnabled = true
+        tableView.dragDelegate = self
+        
         
     }
     
@@ -44,12 +50,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, Tas
     }
     
     func didTapButtonInCell(_ cell: TaskTableViewCell, button: UIButton) {
-        editButtonTapped(button)
-    }
-        
-    
-    @IBAction func editButtonTapped(_ sender: UIButton){
-        performSegue(withIdentifier: "editTaskSegue", sender: self)
+        self.performSegue(withIdentifier: "editTaskSegue", sender: button)
     }
     
     // MARK: - Table view data source
@@ -61,6 +62,10 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, Tas
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         databaseController?.removeListener(listener: self)
+    }
+    
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        performSegue(withIdentifier: "editTaskSegue", sender: indexPath)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -180,6 +185,29 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, Tas
         return true
     }
     */
+    // MARK: - UITableViewDragDelegate
+    
+     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+         let cell = tableView.cellForRow(at: indexPath)!
+         let task = allTasks[indexPath.row]
+         if let text = task.name {
+             let itemProvider = NSItemProvider(object: text as NSString)
+             let dragItem = UIDragItem(itemProvider: itemProvider)
+             return [dragItem]
+         } else {
+             // handle the case where the cell's textLabel is nil
+             return []
+         }
+     }
+    
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let mover = allTasks.remove(at: sourceIndexPath.row)
+        allTasks.insert(mover, at: destinationIndexPath.row)
+        tableView.reloadData()
+    }
+     
+    
 
 
     // MARK: - Navigation
@@ -188,11 +216,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, Tas
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "editTaskSegue" {
-            if let destinationVC = segue.destination as? EditTaskViewController {
-                
-            }
-        }
+        
     }
 
 
