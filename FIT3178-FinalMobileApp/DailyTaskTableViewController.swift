@@ -8,8 +8,7 @@
 import UIKit
 import MobileCoreServices
 
-class DailyTaskTableViewController: UITableViewController, DatabaseListener, TaskCellDelegate, UITableViewDragDelegate{
-    
+class DailyTaskTableViewController: UITableViewController, DatabaseListener, UITableViewDragDelegate{
     
     let SECTION_TASK = 0;
     let CELL_TASK = "taskCell"
@@ -17,8 +16,12 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, Tas
     var allTasks: [DailyTask] = []
     var expandedRowIndex = -1
     var cells: [TaskTableViewCell] = []
+    var checkbox = false
+    var checkedTask: TaskTableViewCell?
+    var editButton: UIButton!
     
     weak var databaseController: DatabaseProtocol?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +41,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, Tas
         tableView.dragDelegate = self
         
         
+        
     }
     
     func onTaskChange(change: DatabaseChange, tasks: [DailyTask]) {
@@ -49,9 +53,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, Tas
         tableView.reloadData()
     }
     
-    func didTapButtonInCell(_ cell: TaskTableViewCell, button: UIButton) {
-        self.performSegue(withIdentifier: "editTaskSegue", sender: button)
-    }
+    
     
     // MARK: - Table view data source
     override func viewWillAppear(_ animated: Bool) {
@@ -62,10 +64,6 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, Tas
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         databaseController?.removeListener(listener: self)
-    }
-    
-    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        performSegue(withIdentifier: "editTaskSegue", sender: indexPath)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -82,6 +80,10 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, Tas
             return 1
         }
     }
+    
+    override func  tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        performSegue(withIdentifier: "editTaskSegue", sender: indexPath)
+    }
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -97,6 +99,19 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, Tas
         } else {
             let taskCell = tableView.dequeueReusableCell(withIdentifier: "TaskTableViewCell", for: indexPath) as! TaskTableViewCell
             // Configure the main cell
+            if allTasks[indexPath.row].check == true {
+                taskCell.backgroundColor = UIColor.gray
+                taskCell.editButton.isHidden = true
+                let mover = allTasks.remove(at: indexPath.row)
+                let numberOfRows = tableView.numberOfRows(inSection: indexPath.section)
+                let lastIndexPath = IndexPath(row: numberOfRows - 1, section: indexPath.section)
+                
+                allTasks.insert(mover, at: lastIndexPath.row)
+            }
+            else {
+                taskCell.backgroundColor = UIColor.white
+                taskCell.editButton.isHidden = false
+            }
             var content = taskCell.defaultContentConfiguration()
             let task = allTasks[indexPath.row]
             content.text = task.name
@@ -104,17 +119,39 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, Tas
             
             taskCell.checkbox.isSelected = task.check ?? false
             
+            
             taskCell.isExpanded = cells[indexPath.row].isExpanded
+            
+            editButton = UIButton(type: .system)
+            editButton.frame = CGRect(x: 40, y: 0, width: 30, height: 30)
+            editButton.setTitle("Edit", for: .normal)
+            editButton.addTarget(self, action: #selector(editButtonTapped(_:)), for: .touchUpInside)
+            editButton.isHidden = false
+            editButton.clipsToBounds = false
+            taskCell.contentView.addSubview(editButton)
+            
+            editButton.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                editButton.centerXAnchor.constraint(equalTo: taskCell.contentView.centerXAnchor),
+                editButton.centerYAnchor.constraint(equalTo: taskCell.contentView.centerYAnchor)
+            ])
+            
+            let taskAccessoryView = UIView(frame:   CGRect(x: 0, y: 0, width: 150, height: 44))
+            let buttonPadding: CGFloat = 10
+            editButton.frame.origin = CGPoint(x: taskCell.checkbox.frame.maxX + buttonPadding, y: (taskAccessoryView.bounds.height - editButton.frame.height) / 2)
+            
+            taskCell.accessoryView?.addSubview(editButton)
             
             return taskCell
             
         }
         
         
-        
-        
     }
-
+    
+    @objc func editButtonTapped(_ sender: UIButton) {
+        performSegue(withIdentifier: "editTaskSegue", sender: sender)
+    }
 
 
     // Override to support conditional editing of the table view.
@@ -153,6 +190,8 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, Tas
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
+    
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == expandedRowIndex && cells[indexPath.row].isExpanded {
             // Return the expanded height
@@ -185,6 +224,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, Tas
         return true
     }
     */
+   
     // MARK: - UITableViewDragDelegate
     
      func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
@@ -205,6 +245,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, Tas
         let mover = allTasks.remove(at: sourceIndexPath.row)
         allTasks.insert(mover, at: destinationIndexPath.row)
         tableView.reloadData()
+        
     }
      
     
@@ -218,6 +259,20 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, Tas
         // Pass the selected object to the new view controller.
         
     }
+    
 
 
+}
+
+extension DailyTaskTableViewController: TaskProtocol {
+    func didTapButtonInCell(_ cell: TaskTableViewCell, button: UIButton) {
+        self.performSegue(withIdentifier: "editTaskSegue", sender: button)
+    }
+    
+    func checkboxTap(_ cell: TaskTableViewCell) {
+        
+        checkbox = true
+        checkedTask = cell
+        tableView.reloadData()
+    }
 }

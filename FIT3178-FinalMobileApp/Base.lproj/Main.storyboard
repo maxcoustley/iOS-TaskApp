@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="taskCell" textLabel="x7w-A6-GRD" rowHeight="68" style="IBUITableViewCellStyleDefault" id="o5Q-Li-s6G" customClass="TaskTableViewCell" customModule="FIT3178_FinalMobileApp" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="taskCell" textLabel="x7w-A6-GRD" rowHeight="68" style="IBUITableViewCellStyleDefault" id="o5Q-Li-s6G" customClass="TaskTableViewCell" customModule="FIT3178_FinalMobileApp">
                                 <rect key="frame" x="0.0" y="50" width="393" height="68"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="o5Q-Li-s6G" id="2g3-AC-Neh">
@@ -37,7 +37,7 @@
                                     <accessibilityTraits key="traits" button="YES"/>
                                 </accessibility>
                                 <connections>
-                                    <segue destination="DVh-VO-jVd" kind="show" identifier="editTaskSegue" trigger="accessoryAction" id="eke-gp-Mpu"/>
+                                    <segue destination="DVh-VO-jVd" kind="show" identifier="editTaskSegue" id="4NJ-GI-fu2"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -144,6 +144,7 @@
                                 <buttonConfiguration key="configuration" style="filled" title="Edit Task"/>
                                 <connections>
                                     <action selector="createTask:" destination="Gc4-QH-cSJ" eventType="touchUpInside" id="mYo-jg-WJB"/>
+                                    <action selector="editTask:" destination="DVh-VO-jVd" eventType="touchUpInside" id="DTI-JL-iyj"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -151,6 +152,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="Edit Task" id="EcA-na-e0v"/>
+                    <connections>
+                        <outlet property="taskName" destination="KtI-CM-WJo" id="YTo-hc-aR9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CCU-MM-Ld4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

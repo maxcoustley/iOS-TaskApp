@@ -11,6 +11,7 @@ class EditTaskViewController: UIViewController {
     
     weak var databaseController: DatabaseProtocol?
 
+    @IBOutlet weak var taskName: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,4 +30,6 @@ class EditTaskViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
 
+    @IBAction func editTask(_ sender: UIButton) {
+    }
 }

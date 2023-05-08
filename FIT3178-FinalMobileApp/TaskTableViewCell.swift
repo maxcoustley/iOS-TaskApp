@@ -12,7 +12,7 @@ class TaskTableViewCell: UITableViewCell {
     var isExpanded = false
     var editButton: UIButton!
     weak var databaseController: DatabaseProtocol?
-    weak var delegate: TaskCellDelegate?
+    weak var taskController: TaskProtocol?
     
         
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -54,6 +54,7 @@ class TaskTableViewCell: UITableViewCell {
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
+        taskController = appDelegate?.taskController
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -83,17 +84,19 @@ class TaskTableViewCell: UITableViewCell {
     }
     
      @objc func editButtonTapped(_ sender: UIButton) {
-         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-         let dailyTaskTableViewController = storyboard.instantiateViewController(withIdentifier: "DailyTaskTableViewController")
-         dailyTaskTableViewController.performSegue(withIdentifier: "editTaskSegue", sender: nil)
-         delegate?.didTapButtonInCell(self, button: sender)
+//         let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//         let dailyTaskTableViewController = storyboard.instantiateViewController(withIdentifier: "DailyTaskTableViewController")
+//         dailyTaskTableViewController.performSegue(withIdentifier: "editTaskSegue", sender: nil)
+         //taskController?.didTapButtonInCell(self, button: sender)
      }
      
     
     
     @objc func checkboxTapped(_ sender: UIButton) {
+
         sender.isSelected = !sender.isSelected
         checkbox.setImage(UIImage(named: isSelected ? "checkbox-checked.png" : "checkbox-unchecked.png"), for: .normal)
+        
         guard let tableView = self.superview as? UITableView else {
             return
         }
@@ -101,6 +104,8 @@ class TaskTableViewCell: UITableViewCell {
         guard let indexPath = tableView.indexPathForRow(at: button), let _ = tableView.cellForRow(at: indexPath) else {
                 return
         }
+        
+        self.backgroundColor = UIColor.gray
         databaseController?.checkTask(taskRow: indexPath.row, newCheck: sender.isSelected)
     }
 
@@ -118,7 +123,4 @@ class TaskTableViewCell: UITableViewCell {
     
     
 
-}
-protocol TaskCellDelegate: AnyObject {
-    func didTapButtonInCell(_ cell: TaskTableViewCell, button: UIButton)
 }
