@@ -19,6 +19,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
     var checkbox = false
     var checkedTask: TaskTableViewCell?
     var editButton: UIButton!
+    var taskEditing: DailyTask!
     
     weak var databaseController: DatabaseProtocol?
     
@@ -35,6 +36,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         databaseController = appDelegate?.databaseController
         tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: "TaskTableViewCell")
         tableView.register(ExpandedTaskTableViewCell.self, forCellReuseIdentifier: "ExpandedTaskTableViewCell")
+        
         tableView.rowHeight = 44
         
         tableView.dragInteractionEnabled = true
@@ -82,6 +84,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
     }
     
     override func  tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        taskEditing = allTasks[indexPath.row]
         performSegue(withIdentifier: "editTaskSegue", sender: indexPath)
     }
 
@@ -93,7 +96,11 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
             var content = taskCell.defaultContentConfiguration()
             let task = allTasks[indexPath.row]
             content.text = task.name
+            taskCell.subTasks = task.subtasks
+            //create subtask table view controller
+            //fetch subtasks and place into table view
             taskCell.contentConfiguration = content
+
             
             return taskCell
         } else {
@@ -147,10 +154,15 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         }
         
         
-    }
+    }	
     
     @objc func editButtonTapped(_ sender: UIButton) {
-        performSegue(withIdentifier: "editTaskSegue", sender: sender)
+        let buttonPath = sender.convert(CGPoint.zero, to: tableView)
+        if let indexPath = tableView.indexPathForRow(at: buttonPath){
+            taskEditing = allTasks[indexPath.row]
+            performSegue(withIdentifier: "editTaskSegue", sender: sender)
+        }
+        
     }
 
 
@@ -257,6 +269,11 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "editTaskSegue" {
+            if let destinationVC = segue.destination as? EditTaskViewController {
+                destinationVC.taskEditing = taskEditing
+            }
+        }
         
     }
     

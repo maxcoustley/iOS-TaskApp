@@ -54,10 +54,11 @@ class FirebaseController: NSObject, DatabaseProtocol {
         listeners.removeDelegate(listener)
     }
     
-    func addTask(name: String, check: Bool) -> DailyTask {
+    func addTask(name: String, check: Bool, subtasks: [SubTask]) -> DailyTask {
         let task = DailyTask()
         task.name = name
         task.check = check
+        task.subtasks = subtasks
         do {
             if let taskRef = try tasksRef?.addDocument(from: task) {
                 task.id = taskRef.documentID
@@ -67,6 +68,17 @@ class FirebaseController: NSObject, DatabaseProtocol {
             print("Failed to serialize task")
         }
         return task
+    }
+    
+    func editTask(name: String, check: Bool, subtasks: [SubTask], editedTask: DailyTask){
+        tasksRef?.document(editedTask.id!).setData(["name": name, "check": check, "subtasks": subtasks], merge: true) { error in
+            if let error = error {
+                print("error updating document: \(error)")
+            }
+            else {
+                print("document updated successfully")
+            }
+        }
     }
     
     func checkTask(taskRow: Int, newCheck: Bool) {

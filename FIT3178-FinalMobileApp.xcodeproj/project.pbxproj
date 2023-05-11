@@ -23,12 +23,14 @@
 		85224A7C29F2556E00A27813 /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85224A7B29F2556E00A27813 /* DatabaseProtocol.swift */; };
 		85224A8029F25EA900A27813 /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85224A7F29F25EA900A27813 /* FirebaseController.swift */; };
 		85224A8229F270DA00A27813 /* DailyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85224A8129F270DA00A27813 /* DailyTask.swift */; };
+		856971E62A0CEDDE002F639C /* EditableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856971E52A0CEDDE002F639C /* EditableTableViewCell.swift */; };
 		8571D61C2A08A44100A5C4F1 /* TaskProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8571D61B2A08A44100A5C4F1 /* TaskProtocol.swift */; };
 		8571D6202A08C9B900A5C4F1 /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8571D61F2A08C9B900A5C4F1 /* TaskTableViewCell.xib */; };
 		858D665229F76AC2005B5A35 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858D665129F76AC2005B5A35 /* TaskTableViewCell.swift */; };
 		858D665429F77559005B5A35 /* checkbox-unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 858D665329F77559005B5A35 /* checkbox-unchecked.png */; };
 		858D665629F77563005B5A35 /* checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 858D665529F77563005B5A35 /* checkbox-checked.png */; };
 		858D665829F77C7A005B5A35 /* ExpandedTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858D665729F77C7A005B5A35 /* ExpandedTaskTableViewCell.swift */; };
+		85D4308A2A0C7D4E00553189 /* SubTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D430892A0C7D4E00553189 /* SubTask.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,12 +49,14 @@
 		85224A7B29F2556E00A27813 /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
 		85224A7F29F25EA900A27813 /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
 		85224A8129F270DA00A27813 /* DailyTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTask.swift; sourceTree = "<group>"; };
+		856971E52A0CEDDE002F639C /* EditableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableTableViewCell.swift; sourceTree = "<group>"; };
 		8571D61B2A08A44100A5C4F1 /* TaskProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskProtocol.swift; sourceTree = "<group>"; };
 		8571D61F2A08C9B900A5C4F1 /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
 		858D665129F76AC2005B5A35 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		858D665329F77559005B5A35 /* checkbox-unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkbox-unchecked.png"; path = "../../../../../../Users/mcou0008/Downloads/checkbox-unchecked.png"; sourceTree = "<group>"; };
 		858D665529F77563005B5A35 /* checkbox-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkbox-checked.png"; path = "../../../../../../Users/mcou0008/Downloads/checkbox-checked.png"; sourceTree = "<group>"; };
 		858D665729F77C7A005B5A35 /* ExpandedTaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedTaskTableViewCell.swift; sourceTree = "<group>"; };
+		85D430892A0C7D4E00553189 /* SubTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTask.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,10 +102,12 @@
 				85224A6929F2474F00A27813 /* DailyTaskTableViewController.swift */,
 				85224A6B29F24D5D00A27813 /* AddTaskViewController.swift */,
 				852033F82A035A4A0098FAD6 /* EditTaskViewController.swift */,
-				85224A8129F270DA00A27813 /* DailyTask.swift */,
+				856971E52A0CEDDE002F639C /* EditableTableViewCell.swift */,
 				858D665129F76AC2005B5A35 /* TaskTableViewCell.swift */,
 				858D665729F77C7A005B5A35 /* ExpandedTaskTableViewCell.swift */,
 				8571D61B2A08A44100A5C4F1 /* TaskProtocol.swift */,
+				85224A8129F270DA00A27813 /* DailyTask.swift */,
+				85D430892A0C7D4E00553189 /* SubTask.swift */,
 				858D665329F77559005B5A35 /* checkbox-unchecked.png */,
 				858D665529F77563005B5A35 /* checkbox-checked.png */,
 				850D2E3129F617950032E05B /* GoogleService-Info.plist */,
@@ -211,6 +217,8 @@
 				85224A5629F2395400A27813 /* AppDelegate.swift in Sources */,
 				8571D61C2A08A44100A5C4F1 /* TaskProtocol.swift in Sources */,
 				85224A7829F2552B00A27813 /* MulticastDelegate.swift in Sources */,
+				85D4308A2A0C7D4E00553189 /* SubTask.swift in Sources */,
+				856971E62A0CEDDE002F639C /* EditableTableViewCell.swift in Sources */,
 				85224A8229F270DA00A27813 /* DailyTask.swift in Sources */,
 				85224A6A29F2474F00A27813 /* DailyTaskTableViewController.swift in Sources */,
 				85224A5829F2395400A27813 /* SceneDelegate.swift in Sources */,
