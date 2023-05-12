@@ -7,6 +7,7 @@
 
 import UIKit
 import MobileCoreServices
+import UserNotifications
 
 class DailyTaskTableViewController: UITableViewController, DatabaseListener, UITableViewDragDelegate{
     
@@ -42,7 +43,34 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         tableView.dragInteractionEnabled = true
         tableView.dragDelegate = self
         
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+            if granted {
+                self.scheduleNotification()
+            }
+        }
         
+        
+    }
+    
+    func scheduleNotification() {
+        // Create content for the notification
+        let content = UNMutableNotificationContent()
+        content.title = "Reminder"
+        content.body = "This is your daily reminder."
+        content.sound = .default
+        
+        // Create a trigger for the notification
+//        var dateComponents = DateComponents()
+//        dateComponents.hour = 12
+//        dateComponents.minute = 00
+//        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        
+        // Create a request for the notification
+        let request = UNNotificationRequest(identifier: "dailyReminder", content: content, trigger: trigger)
+        
+        // Add the request to the notification center
+        UNUserNotificationCenter.current().add(request)
         
     }
     
@@ -99,6 +127,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
             taskCell.subTasks = task.subtasks
             //create subtask table view controller
             //fetch subtasks and place into table view
+            
             taskCell.contentConfiguration = content
 
             
@@ -107,13 +136,14 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
             let taskCell = tableView.dequeueReusableCell(withIdentifier: "TaskTableViewCell", for: indexPath) as! TaskTableViewCell
             // Configure the main cell
             if allTasks[indexPath.row].check == true {
-                taskCell.backgroundColor = UIColor.gray
+                
                 taskCell.editButton.isHidden = true
                 let mover = allTasks.remove(at: indexPath.row)
                 let numberOfRows = tableView.numberOfRows(inSection: indexPath.section)
                 let lastIndexPath = IndexPath(row: numberOfRows - 1, section: indexPath.section)
-                
+
                 allTasks.insert(mover, at: lastIndexPath.row)
+                taskCell.backgroundColor = UIColor.gray
             }
             else {
                 taskCell.backgroundColor = UIColor.white

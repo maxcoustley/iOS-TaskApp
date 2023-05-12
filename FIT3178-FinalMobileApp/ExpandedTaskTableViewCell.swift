@@ -14,6 +14,7 @@ class ExpandedTaskTableViewCell: UITableViewCell, UITableViewDelegate, UITableVi
     var subTasks: [SubTask] = []
     
     
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)	
         innerTableView = UITableView(frame: .zero, style: .plain)
@@ -33,6 +34,8 @@ class ExpandedTaskTableViewCell: UITableViewCell, UITableViewDelegate, UITableVi
 
         // Register the inner table view cell class
         innerTableView.register(UITableViewCell.self, forCellReuseIdentifier: "SubTaskCell")
+        
+        
         
     }
     
@@ -65,7 +68,7 @@ class ExpandedTaskTableViewCell: UITableViewCell, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //display all subtasks
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SubTaskCell", for: indexPath)
+        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
         var content = cell.defaultContentConfiguration()
         let subtask = subTasks[indexPath.row]
         content.text = subtask.name

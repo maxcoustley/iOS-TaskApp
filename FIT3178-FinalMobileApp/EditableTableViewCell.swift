@@ -9,8 +9,29 @@ import UIKit
 
 class EditableTableViewCell: UITableViewCell {
     
-    
+    var editedTask: SubTask!
     @IBOutlet weak var subtaskTextField: UITextField!
+    var textField = UITextField()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(textField)
+        
+        NSLayoutConstraint.activate([
+            textField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            textField.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            textField.widthAnchor.constraint(equalToConstant: 200),
+        ])
+        
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

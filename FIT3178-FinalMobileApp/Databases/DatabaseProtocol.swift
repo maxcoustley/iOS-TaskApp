@@ -40,5 +40,6 @@ protocol DatabaseProtocol: AnyObject {
     func editTask(name: String, check: Bool, subtasks: [SubTask], editedTask: DailyTask)
     func deleteTask(task: DailyTask)
     func checkTask(taskRow: Int, newCheck: Bool)
+    func deleteSubtask(subtask: SubTask, task: DailyTask)
     
 }

@@ -49,9 +49,27 @@ class EditTaskViewController: UIViewController, UITableViewDelegate, UITableView
             displayMessage(title: "Not all fields filled", message: errorMsg)
             return
         }
+        //go through all editabletableviewcells and collect all subtask names
         else{
             let _ = databaseController?.editTask(name: name, check: false, subtasks: taskEditing.subtasks, editedTask: taskEditing)
             navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    // Override to support conditional editing of the table view.
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+   
+
+    // Override to support editing the table view.
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            // Delete the row from the data source
+            let task = taskEditing.subtasks[indexPath.row]
+            //addSubtask db controller
+            let _ = databaseController?.deleteSubtask(subtask: task, task: taskEditing)
         }
     }
 
@@ -72,15 +90,12 @@ class EditTaskViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "editSubTaskCell", for: indexPath) as! EditableTableViewCell
         let subtask = taskEditing.subtasks[indexPath.row]
-        if cell.subtaskTextField == nil {
-            print(subtask.name)
-            return cell
-        }
-        else {
-            print(subtask.name)
-            cell.subtaskTextField.text = subtask.name
-            return cell
-        }
+        print(subtask.name!)
+        cell.editedTask = subtask
+        cell.textField.text = subtask.name!
+        taskEditing.subtasks[indexPath.row].name = cell.textField.text
+        return cell
+        
         
     }
 }

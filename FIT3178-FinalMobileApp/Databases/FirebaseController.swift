@@ -71,7 +71,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     }
     
     func editTask(name: String, check: Bool, subtasks: [SubTask], editedTask: DailyTask){
-        tasksRef?.document(editedTask.id!).setData(["name": name, "check": check, "subtasks": subtasks], merge: true) { error in
+        tasksRef?.document(String(editedTask.id!)).setData(["name": name, "check": check, "subtasks": subtasks], merge: true) { error in
             if let error = error {
                 print("error updating document: \(error)")
             }
@@ -92,6 +92,12 @@ class FirebaseController: NSObject, DatabaseProtocol {
     func deleteTask(task: DailyTask) {
         if let taskID = task.id {
             tasksRef?.document(taskID).delete()
+        }
+    }
+    
+    func deleteSubtask(subtask: SubTask, task: DailyTask) {
+        if let taskID = task.id {
+            tasksRef?.document(taskID).updateData(["subtasks." + String(subtask.id!): FieldValue.delete()])
         }
     }
     
@@ -125,7 +131,13 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 taskList.insert(task, at: Int(taskList.count))
             }
             else if change.type == .modified {
-                taskList[Int(change.oldIndex)] = task
+                if Int(change.oldIndex) < taskList.count{
+                    taskList[Int(change.oldIndex)] = task
+                }
+                else {
+                    taskList[taskList.count-1] = task
+                }
+                
             }
             else if change.type == .removed {
                 taskList.remove(at: Int(change.oldIndex))
