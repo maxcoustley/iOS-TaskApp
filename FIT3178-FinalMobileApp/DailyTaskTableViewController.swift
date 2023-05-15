@@ -11,6 +11,7 @@ import UserNotifications
 
 class DailyTaskTableViewController: UITableViewController, DatabaseListener, UITableViewDragDelegate{
     
+    
     let SECTION_TASK = 0;
     let CELL_TASK = "taskCell"
     var listenerType: ListenerType = .task
@@ -21,6 +22,8 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
     var checkedTask: TaskTableViewCell?
     var editButton: UIButton!
     var taskEditing: DailyTask!
+    var isSectionExpanded: [Bool] = []
+    
     
     weak var databaseController: DatabaseProtocol?
     
@@ -37,6 +40,8 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         databaseController = appDelegate?.databaseController
         tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: "TaskTableViewCell")
         tableView.register(ExpandedTaskTableViewCell.self, forCellReuseIdentifier: "ExpandedTaskTableViewCell")
+        tableView.register(SubtaskTableViewCell.self, forCellReuseIdentifier: "SubtaskTableViewCell")
+
         
         tableView.rowHeight = 44
         
@@ -48,6 +53,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
                 self.scheduleNotification()
             }
         }
+        
         
         
     }
@@ -80,6 +86,12 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
             let cell = TaskTableViewCell()
             cells.append(cell)
         }
+        if isSectionExpanded.count != allTasks.count {
+            for _ in 0..<allTasks.count {
+                isSectionExpanded.append(false)
+            }
+        }
+
         tableView.reloadData()
     }
     
@@ -98,90 +110,155 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return allTasks.count
+        
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if section == SECTION_TASK {
-            return allTasks.count
-        }
-        else {
-            return 1
-        }
+        return isSectionExpanded[section] ? allTasks[section].subtasks.count : 0
     }
     
     override func  tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         taskEditing = allTasks[indexPath.row]
         performSegue(withIdentifier: "editTaskSegue", sender: indexPath)
     }
-
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TaskTableViewCell") as! TaskTableViewCell
+        if allTasks[section].check == true{
+            
+//            editButton.isHidden = true
+//            let mover = allTasks.remove(at: section)
+//            let numberOfRows = tableView.numberOfRows(inSection: section)
+//            let lastIndexPath = IndexPath(row: numberOfRows - 1, section: section)
+//
+//            allTasks.insert(mover, at: lastIndexPath.row)
+            cell.backgroundColor = UIColor.lightGray
+                        
+        }
+        else {
+            cell.backgroundColor = UIColor.white
+            cell.editButton.isHidden = false
+        }
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(headerTapped(_:)))
+        cell.addGestureRecognizer(tapGesture)
+        cell.tag = section
+        var content = cell.defaultContentConfiguration()
+        content.text = allTasks[section].name
+        cell.contentConfiguration = content
+        
+//        editButton = UIButton(type: .system)
+//        editButton.frame = CGRect(x: 40, y: 0, width: 30, height: 30)
+//        editButton.setTitle("Edit", for: .normal)
+//        editButton.addTarget(self, action: #selector(editButtonTapped(_:)), for: .touchUpInside)
+//        editButton.isHidden = false
+//        editButton.clipsToBounds = false
+//        cell.contentView.addSubview(editButton)
+//
+//        editButton.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            editButton.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
+//            editButton.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor)
+//        ])
+//
+//        let taskAccessoryView = UIView(frame:   CGRect(x: 0, y: 0, width: 150, height: 44))
+//        let buttonPadding: CGFloat = 10
+//        editButton.frame.origin = CGPoint(x: cell.checkbox.frame.maxX + buttonPadding, y: (taskAccessoryView.bounds.height - editButton.frame.height) / 2)
+//
+//        cell.accessoryView?.addSubview(editButton)
+        
+        return cell
+    }
+    
+    @objc func headerTapped(_ sender: UITapGestureRecognizer) {
+        guard let section = sender.view?.tag else { return }
+        let x = isSectionExpanded[section]
+        isSectionExpanded.removeAll()
+        for _ in 0..<allTasks.count {
+            isSectionExpanded.append(false)
+        }
+        isSectionExpanded[section] = !x // Toggle expanded/collapsed state
+        let indexSet = IndexSet(integer: section)
+        tableView.reloadData()
+        //tableView.reloadSections(indexSet, with: .automatic) // Update table view display
+   }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == expandedRowIndex {
-            let taskCell = tableView.dequeueReusableCell(withIdentifier: "ExpandedTaskTableViewCell", for: indexPath) as! ExpandedTaskTableViewCell
-            // Configure the expanded cell
-            var content = taskCell.defaultContentConfiguration()
-            let task = allTasks[indexPath.row]
-            content.text = task.name
-            taskCell.subTasks = task.subtasks
-            //create subtask table view controller
-            //fetch subtasks and place into table view
-            
-            taskCell.contentConfiguration = content
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "SubtaskTableViewCell")
+//        var content = cell?.defaultContentConfiguration()
+//        content?.text = allTasks[indexPath.section].subtasks[indexPath.row].name
+//        cell?.contentConfiguration = content
+//        return cell!
+    
+//        if indexPath.row == expandedRowIndex {
+//            let taskCell = tableView.dequeueReusableCell(withIdentifier: "ExpandedTaskTableViewCell", for: indexPath) as! ExpandedTaskTableViewCell
+//            // Configure the expanded cell
+//            var content = taskCell.defaultContentConfiguration()
+//            let task = allTasks[indexPath.row]
+//            taskCell.subTasks = task.subtasks
+//            taskCell.innerTableView.reloadData()
+//            //create subtask table view controller
+//            //fetch subtasks and place into table view
+//
+//            taskCell.contentConfiguration = content
+//
+//
+//            return taskCell
+//        } else {
+        
+        let taskCell = tableView.dequeueReusableCell(withIdentifier: "SubtaskTableViewCell", for: indexPath) as! SubtaskTableViewCell
+        // Configure the main cell
+        
+        //return subtask cell
+        //create subtask cell class + maybe get rid of expanded view cell class
+        //clicking on task cell will expand the subtask cells?
+        if allTasks[indexPath.section].subtasks[indexPath.row].check == true {
 
-            
-            return taskCell
-        } else {
-            let taskCell = tableView.dequeueReusableCell(withIdentifier: "TaskTableViewCell", for: indexPath) as! TaskTableViewCell
-            // Configure the main cell
-            if allTasks[indexPath.row].check == true {
-                
-                taskCell.editButton.isHidden = true
-                let mover = allTasks.remove(at: indexPath.row)
-                let numberOfRows = tableView.numberOfRows(inSection: indexPath.section)
-                let lastIndexPath = IndexPath(row: numberOfRows - 1, section: indexPath.section)
+            taskCell.editButton.isHidden = true
+            let mover = allTasks.remove(at: indexPath.row)
+            let numberOfRows = tableView.numberOfRows(inSection: indexPath.section)
+            let lastIndexPath = IndexPath(row: numberOfRows - 1, section: indexPath.section)
 
-                allTasks.insert(mover, at: lastIndexPath.row)
-                taskCell.backgroundColor = UIColor.gray
-            }
-            else {
-                taskCell.backgroundColor = UIColor.white
-                taskCell.editButton.isHidden = false
-            }
-            var content = taskCell.defaultContentConfiguration()
-            let task = allTasks[indexPath.row]
-            content.text = task.name
-            taskCell.contentConfiguration = content
-            
-            taskCell.checkbox.isSelected = task.check ?? false
-            
-            
-            taskCell.isExpanded = cells[indexPath.row].isExpanded
-            
-            editButton = UIButton(type: .system)
-            editButton.frame = CGRect(x: 40, y: 0, width: 30, height: 30)
-            editButton.setTitle("Edit", for: .normal)
-            editButton.addTarget(self, action: #selector(editButtonTapped(_:)), for: .touchUpInside)
-            editButton.isHidden = false
-            editButton.clipsToBounds = false
-            taskCell.contentView.addSubview(editButton)
-            
-            editButton.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                editButton.centerXAnchor.constraint(equalTo: taskCell.contentView.centerXAnchor),
-                editButton.centerYAnchor.constraint(equalTo: taskCell.contentView.centerYAnchor)
-            ])
-            
-            let taskAccessoryView = UIView(frame:   CGRect(x: 0, y: 0, width: 150, height: 44))
-            let buttonPadding: CGFloat = 10
-            editButton.frame.origin = CGPoint(x: taskCell.checkbox.frame.maxX + buttonPadding, y: (taskAccessoryView.bounds.height - editButton.frame.height) / 2)
-            
-            taskCell.accessoryView?.addSubview(editButton)
-            
-            return taskCell
-            
+            allTasks.insert(mover, at: lastIndexPath.row)
+            taskCell.backgroundColor = UIColor.gray
         }
+        else {
+            taskCell.backgroundColor = UIColor.white
+            taskCell.editButton.isHidden = false
+        }
+        var content = taskCell.defaultContentConfiguration()
+        let task = allTasks[indexPath.section].subtasks[indexPath.row]
+        content.text = task.name
+        taskCell.contentConfiguration = content
+
+        taskCell.checkbox.isSelected = task.check ?? false
+
+
+        //taskCell.isExpanded = cells[indexPath.row].isExpanded
+
+        editButton = UIButton(type: .system)
+        editButton.frame = CGRect(x: 40, y: 0, width: 30, height: 30)
+        editButton.setTitle("Edit", for: .normal)
+        editButton.addTarget(self, action: #selector(editButtonTapped(_:)), for: .touchUpInside)
+        editButton.isHidden = false
+        editButton.clipsToBounds = false
+        taskCell.contentView.addSubview(editButton)
+
+        editButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            editButton.centerXAnchor.constraint(equalTo: taskCell.contentView.centerXAnchor),
+            editButton.centerYAnchor.constraint(equalTo: taskCell.contentView.centerYAnchor)
+        ])
+
+        let taskAccessoryView = UIView(frame:   CGRect(x: 0, y: 0, width: 150, height: 44))
+        let buttonPadding: CGFloat = 10
+        editButton.frame.origin = CGPoint(x: taskCell.checkbox.frame.maxX + buttonPadding, y: (taskAccessoryView.bounds.height - editButton.frame.height) / 2)
+
+        taskCell.accessoryView?.addSubview(editButton)
+
+        return taskCell
+            
         
         
     }	
@@ -219,29 +296,34 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
         
-        if indexPath.row == expandedRowIndex {
-            expandedRowIndex = -1 // Collapse the cell
-        } else {
-            expandedRowIndex = indexPath.row // Expand the cell
-        }
-
-        
-        
-        cells[indexPath.row].isExpanded.toggle()
-        
-        tableView.reloadRows(at: [indexPath], with: .automatic)
+//        if indexPath.row == expandedRowIndex {
+//            expandedRowIndex = -1 // Collapse the cell
+//        } else {
+//            expandedRowIndex = indexPath.row // Expand the cell
+//        }
+//
+//
+//
+//        cells[indexPath.row].isExpanded.toggle()
+//
+//        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
     
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == expandedRowIndex && cells[indexPath.row].isExpanded {
-            // Return the expanded height
-            return 200
-        } else {
-            // Return the collapsed height
-            return 44
-        }
+//        if indexPath.row == expandedRowIndex && cells[indexPath.row].isExpanded {
+//            // Return the expanded height
+//            return 200
+//        } else {
+//            // Return the collapsed height
+//            return 44
+//        }
+        return 44
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return isSectionExpanded[section] ? 88 : 44
     }
     
     func displayMessage(title: String, message: String) {

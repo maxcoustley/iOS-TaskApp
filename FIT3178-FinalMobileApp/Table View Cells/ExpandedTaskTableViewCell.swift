@@ -17,7 +17,7 @@ class ExpandedTaskTableViewCell: UITableViewCell, UITableViewDelegate, UITableVi
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)	
-        innerTableView = UITableView(frame: .zero, style: .plain)
+        innerTableView = UITableView()
         innerTableView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(innerTableView)
 
@@ -31,12 +31,8 @@ class ExpandedTaskTableViewCell: UITableViewCell, UITableViewDelegate, UITableVi
 
         innerTableView.delegate = self
         innerTableView.dataSource = self
+        
 
-        // Register the inner table view cell class
-        innerTableView.register(UITableViewCell.self, forCellReuseIdentifier: "SubTaskCell")
-        
-        
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -60,6 +56,19 @@ class ExpandedTaskTableViewCell: UITableViewCell, UITableViewDelegate, UITableVi
         // Configure the view for the selected state
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        // Set the subview's frame to fill the entire cell's contentView
+        innerTableView.frame = contentView.bounds
+    }
+
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        // Set the cell's height to accommodate the subview
+        let subviewHeight = innerTableView.contentSize.height
+        return CGSize(width: size.width, height: subviewHeight)
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //return number of subtasks for the task expanded
@@ -68,7 +77,7 @@ class ExpandedTaskTableViewCell: UITableViewCell, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //display all subtasks
-        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+        let cell = UITableViewCell()
         var content = cell.defaultContentConfiguration()
         let subtask = subTasks[indexPath.row]
         content.text = subtask.name

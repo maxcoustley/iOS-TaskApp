@@ -30,6 +30,7 @@
 		858D665429F77559005B5A35 /* checkbox-unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 858D665329F77559005B5A35 /* checkbox-unchecked.png */; };
 		858D665629F77563005B5A35 /* checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 858D665529F77563005B5A35 /* checkbox-checked.png */; };
 		858D665829F77C7A005B5A35 /* ExpandedTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858D665729F77C7A005B5A35 /* ExpandedTaskTableViewCell.swift */; };
+		85AD806B2A11C6710066096B /* SubtaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85AD806A2A11C6710066096B /* SubtaskTableViewCell.swift */; };
 		85D4308A2A0C7D4E00553189 /* SubTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D430892A0C7D4E00553189 /* SubTask.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +57,7 @@
 		858D665329F77559005B5A35 /* checkbox-unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkbox-unchecked.png"; path = "../../../../../../Users/mcou0008/Downloads/checkbox-unchecked.png"; sourceTree = "<group>"; };
 		858D665529F77563005B5A35 /* checkbox-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkbox-checked.png"; path = "../../../../../../Users/mcou0008/Downloads/checkbox-checked.png"; sourceTree = "<group>"; };
 		858D665729F77C7A005B5A35 /* ExpandedTaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedTaskTableViewCell.swift; sourceTree = "<group>"; };
+		85AD806A2A11C6710066096B /* SubtaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskTableViewCell.swift; sourceTree = "<group>"; };
 		85D430892A0C7D4E00553189 /* SubTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTask.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,12 +101,10 @@
 				85224A5E29F2395500A27813 /* Assets.xcassets */,
 				85224A6029F2395500A27813 /* LaunchScreen.storyboard */,
 				85224A6329F2395500A27813 /* Info.plist */,
+				85AD806C2A11C67A0066096B /* Table View Cells */,
 				85224A6929F2474F00A27813 /* DailyTaskTableViewController.swift */,
 				85224A6B29F24D5D00A27813 /* AddTaskViewController.swift */,
 				852033F82A035A4A0098FAD6 /* EditTaskViewController.swift */,
-				856971E52A0CEDDE002F639C /* EditableTableViewCell.swift */,
-				858D665129F76AC2005B5A35 /* TaskTableViewCell.swift */,
-				858D665729F77C7A005B5A35 /* ExpandedTaskTableViewCell.swift */,
 				8571D61B2A08A44100A5C4F1 /* TaskProtocol.swift */,
 				85224A8129F270DA00A27813 /* DailyTask.swift */,
 				85D430892A0C7D4E00553189 /* SubTask.swift */,
@@ -124,6 +124,17 @@
 				85224A7F29F25EA900A27813 /* FirebaseController.swift */,
 			);
 			path = Databases;
+			sourceTree = "<group>";
+		};
+		85AD806C2A11C67A0066096B /* Table View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				858D665129F76AC2005B5A35 /* TaskTableViewCell.swift */,
+				856971E52A0CEDDE002F639C /* EditableTableViewCell.swift */,
+				85AD806A2A11C6710066096B /* SubtaskTableViewCell.swift */,
+				858D665729F77C7A005B5A35 /* ExpandedTaskTableViewCell.swift */,
+			);
+			path = "Table View Cells";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,6 +224,7 @@
 				85224A8029F25EA900A27813 /* FirebaseController.swift in Sources */,
 				85224A7C29F2556E00A27813 /* DatabaseProtocol.swift in Sources */,
 				858D665229F76AC2005B5A35 /* TaskTableViewCell.swift in Sources */,
+				85AD806B2A11C6710066096B /* SubtaskTableViewCell.swift in Sources */,
 				858D665829F77C7A005B5A35 /* ExpandedTaskTableViewCell.swift in Sources */,
 				85224A5629F2395400A27813 /* AppDelegate.swift in Sources */,
 				8571D61C2A08A44100A5C4F1 /* TaskProtocol.swift in Sources */,
