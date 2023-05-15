@@ -26,31 +26,7 @@ class SubtaskTableViewCell: UITableViewCell {
         checkbox.setImage(UIImage(named: "checkbox-unchecked.png"), for: .normal)
         contentView.addSubview(checkbox)
         
-        editButton = UIButton(type: .system)
-        editButton.frame = CGRect(x: 40, y: 0, width: 30, height: 30)
-        editButton.setTitle("Edit", for: .normal)
-        editButton.addTarget(self, action: #selector(editButtonTapped(_:)), for: .touchUpInside)
-        editButton.isHidden = false
-        editButton.clipsToBounds = false
-        contentView.addSubview(editButton)
-        
-        editButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            editButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            editButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
-        ])
-        
-        
-        let taskAccessoryView = UIView(frame:   CGRect(x: 0, y: 0, width: 150, height: 44))
-        let buttonPadding: CGFloat = 10
-        let totalWidth = checkbox.frame.width + buttonPadding + editButton.frame.width
-        checkbox.frame.origin = CGPoint(x: (taskAccessoryView.bounds.width - totalWidth) / 2, y: (taskAccessoryView.bounds.height - checkbox.frame.height) / 2)
-        editButton.frame.origin = CGPoint(x: checkbox.frame.maxX + buttonPadding, y: (taskAccessoryView.bounds.height - editButton.frame.height) / 2)
-        
-        taskAccessoryView.addSubview(checkbox)
-        taskAccessoryView.addSubview(editButton)
-        
-        accessoryView = taskAccessoryView
+        accessoryView = checkbox
                                        
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -61,27 +37,14 @@ class SubtaskTableViewCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        editButton = UIButton(type: .system)
-        editButton.setTitle("Edit", for: .normal)
-        editButton.addTarget(self, action: #selector(editButtonTapped(_:)), for: .touchUpInside)
-        contentView.addSubview(editButton)
-        accessoryView = editButton
-        editButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            editButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            editButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
-        ])
+        
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
         // Set the frame of the edit button
-        let buttonWidth: CGFloat = 60.0
-        let buttonHeight: CGFloat = 30.0
-        let buttonX = contentView.frame.width - buttonWidth - 20.0
-        let buttonY = (contentView.frame.height - buttonHeight) / 2.0
-        editButton.frame = CGRect(x: buttonX, y: buttonY, width: buttonWidth, height: buttonHeight)
+        
     }
     
      @objc func editButtonTapped(_ sender: UIButton) {

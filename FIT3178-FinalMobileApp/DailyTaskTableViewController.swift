@@ -139,7 +139,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         }
         else {
             cell.backgroundColor = UIColor.white
-            cell.editButton.isHidden = false
+//            cell.editButton.isHidden = false
         }
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(headerTapped(_:)))
         cell.addGestureRecognizer(tapGesture)
@@ -148,25 +148,22 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         content.text = allTasks[section].name
         cell.contentConfiguration = content
         
-//        editButton = UIButton(type: .system)
-//        editButton.frame = CGRect(x: 40, y: 0, width: 30, height: 30)
-//        editButton.setTitle("Edit", for: .normal)
-//        editButton.addTarget(self, action: #selector(editButtonTapped(_:)), for: .touchUpInside)
-//        editButton.isHidden = false
-//        editButton.clipsToBounds = false
-//        cell.contentView.addSubview(editButton)
-//
-//        editButton.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            editButton.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
-//            editButton.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor)
-//        ])
-//
-//        let taskAccessoryView = UIView(frame:   CGRect(x: 0, y: 0, width: 150, height: 44))
-//        let buttonPadding: CGFloat = 10
-//        editButton.frame.origin = CGPoint(x: cell.checkbox.frame.maxX + buttonPadding, y: (taskAccessoryView.bounds.height - editButton.frame.height) / 2)
-//
-//        cell.accessoryView?.addSubview(editButton)
+        editButton = UIButton(type: .system)
+        editButton.frame = CGRect(x: 40, y: 0, width: 30, height: 30)
+        editButton.setTitle("Edit", for: .normal)
+        editButton.addTarget(self, action: #selector(editButtonTapped(_:)), for: .touchUpInside)
+        editButton.isHidden = false
+        editButton.clipsToBounds = false
+        editButton.tag = section
+        cell.contentView.addSubview(editButton)
+
+        editButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            editButton.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
+            editButton.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor)
+        ])
+
+        cell.accessoryView?.addSubview(editButton)
         
         return cell
     }
@@ -214,8 +211,6 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         //create subtask cell class + maybe get rid of expanded view cell class
         //clicking on task cell will expand the subtask cells?
         if allTasks[indexPath.section].subtasks[indexPath.row].check == true {
-
-            taskCell.editButton.isHidden = true
             let mover = allTasks.remove(at: indexPath.row)
             let numberOfRows = tableView.numberOfRows(inSection: indexPath.section)
             let lastIndexPath = IndexPath(row: numberOfRows - 1, section: indexPath.section)
@@ -225,7 +220,6 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         }
         else {
             taskCell.backgroundColor = UIColor.white
-            taskCell.editButton.isHidden = false
         }
         var content = taskCell.defaultContentConfiguration()
         let task = allTasks[indexPath.section].subtasks[indexPath.row]
@@ -233,29 +227,12 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         taskCell.contentConfiguration = content
 
         taskCell.checkbox.isSelected = task.check ?? false
+    
 
 
         //taskCell.isExpanded = cells[indexPath.row].isExpanded
 
-        editButton = UIButton(type: .system)
-        editButton.frame = CGRect(x: 40, y: 0, width: 30, height: 30)
-        editButton.setTitle("Edit", for: .normal)
-        editButton.addTarget(self, action: #selector(editButtonTapped(_:)), for: .touchUpInside)
-        editButton.isHidden = false
-        editButton.clipsToBounds = false
-        taskCell.contentView.addSubview(editButton)
-
-        editButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            editButton.centerXAnchor.constraint(equalTo: taskCell.contentView.centerXAnchor),
-            editButton.centerYAnchor.constraint(equalTo: taskCell.contentView.centerYAnchor)
-        ])
-
-        let taskAccessoryView = UIView(frame:   CGRect(x: 0, y: 0, width: 150, height: 44))
-        let buttonPadding: CGFloat = 10
-        editButton.frame.origin = CGPoint(x: taskCell.checkbox.frame.maxX + buttonPadding, y: (taskAccessoryView.bounds.height - editButton.frame.height) / 2)
-
-        taskCell.accessoryView?.addSubview(editButton)
+       
 
         return taskCell
             
@@ -264,11 +241,11 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
     }	
     
     @objc func editButtonTapped(_ sender: UIButton) {
-        let buttonPath = sender.convert(CGPoint.zero, to: tableView)
-        if let indexPath = tableView.indexPathForRow(at: buttonPath){
-            taskEditing = allTasks[indexPath.row]
-            performSegue(withIdentifier: "editTaskSegue", sender: sender)
-        }
+        let buttonPath = editButton.tag
+        
+        taskEditing = allTasks[buttonPath]
+        performSegue(withIdentifier: "editTaskSegue", sender: sender)
+        
         
     }
 
@@ -322,9 +299,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         return 44
     }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return isSectionExpanded[section] ? 88 : 44
-    }
+
     
     func displayMessage(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message,
