@@ -31,6 +31,7 @@
 		858D665629F77563005B5A35 /* checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 858D665529F77563005B5A35 /* checkbox-checked.png */; };
 		858D665829F77C7A005B5A35 /* ExpandedTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858D665729F77C7A005B5A35 /* ExpandedTaskTableViewCell.swift */; };
 		85AD806B2A11C6710066096B /* SubtaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85AD806A2A11C6710066096B /* SubtaskTableViewCell.swift */; };
+		85B37E272A15B8AD00558745 /* TaskStreakViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B37E262A15B8AD00558745 /* TaskStreakViewController.swift */; };
 		85D4308A2A0C7D4E00553189 /* SubTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D430892A0C7D4E00553189 /* SubTask.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,7 @@
 		858D665529F77563005B5A35 /* checkbox-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkbox-checked.png"; path = "../../../../../../Users/mcou0008/Downloads/checkbox-checked.png"; sourceTree = "<group>"; };
 		858D665729F77C7A005B5A35 /* ExpandedTaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedTaskTableViewCell.swift; sourceTree = "<group>"; };
 		85AD806A2A11C6710066096B /* SubtaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskTableViewCell.swift; sourceTree = "<group>"; };
+		85B37E262A15B8AD00558745 /* TaskStreakViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStreakViewController.swift; sourceTree = "<group>"; };
 		85D430892A0C7D4E00553189 /* SubTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTask.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,6 +107,7 @@
 				85224A6929F2474F00A27813 /* DailyTaskTableViewController.swift */,
 				85224A6B29F24D5D00A27813 /* AddTaskViewController.swift */,
 				852033F82A035A4A0098FAD6 /* EditTaskViewController.swift */,
+				85B37E262A15B8AD00558745 /* TaskStreakViewController.swift */,
 				8571D61B2A08A44100A5C4F1 /* TaskProtocol.swift */,
 				85224A8129F270DA00A27813 /* DailyTask.swift */,
 				85D430892A0C7D4E00553189 /* SubTask.swift */,
@@ -225,6 +228,7 @@
 				85224A7C29F2556E00A27813 /* DatabaseProtocol.swift in Sources */,
 				858D665229F76AC2005B5A35 /* TaskTableViewCell.swift in Sources */,
 				85AD806B2A11C6710066096B /* SubtaskTableViewCell.swift in Sources */,
+				85B37E272A15B8AD00558745 /* TaskStreakViewController.swift in Sources */,
 				858D665829F77C7A005B5A35 /* ExpandedTaskTableViewCell.swift in Sources */,
 				85224A5629F2395400A27813 /* AppDelegate.swift in Sources */,
 				8571D61C2A08A44100A5C4F1 /* TaskProtocol.swift in Sources */,

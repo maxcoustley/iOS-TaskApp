@@ -23,6 +23,10 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
     var editButton: UIButton!
     var taskEditing: DailyTask!
     var isSectionExpanded: [Bool] = []
+    var tasksCompleted: Bool = false
+    var currentStreak = 0
+    var highestStreak = 0
+    
     
     
     weak var databaseController: DatabaseProtocol?
@@ -54,6 +58,8 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
             }
         }
         
+        dailyCheck()
+        
         
         
     }
@@ -78,6 +84,47 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         // Add the request to the notification center
         UNUserNotificationCenter.current().add(request)
         
+    }
+    
+    func checkTasksCompleted() -> Bool {
+        for i in 0..<allTasks.count {
+            if allTasks[i].check == false {
+                return false
+            }
+        }
+        return true
+    }
+    
+    func updateStreak() {
+        if checkTasksCompleted() {
+            currentStreak += 1
+            
+            if currentStreak > highestStreak {
+                highestStreak = currentStreak
+            }
+        } else {
+            currentStreak = 0
+        }
+        databaseController?.saveStreaks(current: currentStreak, highest: highestStreak)
+    }
+    
+    func dailyCheck() {
+        let calendar = Calendar.current
+        let now = Date()
+        
+        let endOfDayComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: now)
+            let endOfDay = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: calendar.date(from: endOfDayComponents)!)
+            
+            // Calculate the time interval until the end of the day
+            let timeInterval = endOfDay!.timeIntervalSince(now)
+            
+            // Schedule the timer to trigger at the end of the day
+            Timer.scheduledTimer(withTimeInterval: timeInterval, repeats: false) { _ in
+                self.updateStreak()
+                
+                // Schedule the check again for the next day
+                self.dailyCheck()
+            }
     }
     
     func onTaskChange(change: DatabaseChange, tasks: [DailyTask]) {
@@ -135,10 +182,12 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
 //
 //            allTasks.insert(mover, at: lastIndexPath.row)
             cell.backgroundColor = UIColor.lightGray
+            cell.checkbox.isSelected = true
                         
         }
         else {
             cell.backgroundColor = UIColor.white
+            cell.checkbox.isSelected = false
 //            cell.editButton.isHidden = false
         }
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(headerTapped(_:)))

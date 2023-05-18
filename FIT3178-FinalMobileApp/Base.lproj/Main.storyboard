@@ -52,17 +52,74 @@
                             <barButtonItem title="Item" image="calendar" catalog="system" id="AJE-n6-Fwk"/>
                             <barButtonItem title="Item" image="cloud" catalog="system" id="8mW-82-J2e"/>
                         </leftBarButtonItems>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="XRe-fi-2GW">
-                            <connections>
-                                <segue destination="Gc4-QH-cSJ" kind="show" id="Obb-4D-fz5"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="XRe-fi-2GW">
+                                <connections>
+                                    <segue destination="Gc4-QH-cSJ" kind="show" id="Obb-4D-fz5"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Streak" id="hNk-vX-KyK">
+                                <connections>
+                                    <segue destination="fHB-ta-k9a" kind="show" id="gvt-zm-8be"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m7K-4D-6bz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="987" y="-52"/>
+        </scene>
+        <!--Task Streak-->
+        <scene sceneID="rWg-6a-FQ1">
+            <objects>
+                <viewController title="Task Streak" id="fHB-ta-k9a" customClass="TaskStreakViewController" customModule="FIT3178_FinalMobileApp" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8TO-ep-4XZ">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nNf-tl-5V6">
+                                <rect key="frame" x="175" y="264" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U23-Cn-RfO">
+                                <rect key="frame" x="175" y="386" width="42" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Days where all tasks were completed!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FKm-Yq-BgD">
+                                <rect key="frame" x="58" y="306" width="286" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Days is your highest streak!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7QG-D7-pXx">
+                                <rect key="frame" x="92" y="432" width="209" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="bxZ-Rb-1ve"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Task Streak" id="oFf-23-RlJ"/>
+                    <connections>
+                        <outlet property="currentStreak" destination="nNf-tl-5V6" id="eZM-mm-KzE"/>
+                        <outlet property="highestStreak" destination="U23-Cn-RfO" id="h1b-WN-mxS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eCb-iF-8Vt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="980.91603053435108" y="-759.15492957746483"/>
         </scene>
         <!--Add Task-->
         <scene sceneID="cFj-GD-swb">

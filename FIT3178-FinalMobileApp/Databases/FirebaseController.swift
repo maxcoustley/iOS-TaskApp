@@ -13,10 +13,12 @@ import FirebaseFirestoreSwift
 class FirebaseController: NSObject, DatabaseProtocol {
     
     
+    
     var listeners = MulticastDelegate<DatabaseListener>()
     var authController: Auth
     var database: Firestore
     var tasksRef: CollectionReference?
+    var streakRef: CollectionReference?
     var currentUser: FirebaseAuth.User?
     var taskList: [DailyTask] = []
     
@@ -149,4 +151,43 @@ class FirebaseController: NSObject, DatabaseProtocol {
             }
         }
     }
+    
+    func fetchHighestStreak() async throws-> Int {
+        let streakRef = database.collection("streaks").document("streak")
+            
+            do {
+                let documentSnapshot = try await streakRef.getDocument()
+                
+                if let highest = documentSnapshot.data()?["highest"] as? Int {
+                    return highest
+                }
+            } catch {
+                throw error
+            }
+            
+            return 0 // Default value if the document or field doesn't exist
+    }
+    
+    func fetchCurrentStreak() async throws-> Int {
+        let streakRef = database.collection("streaks").document("streak")
+            
+            do {
+                let documentSnapshot = try await streakRef.getDocument()
+                
+                if let highest = documentSnapshot.data()?["current"] as? Int {
+                    return highest
+                }
+            } catch {
+                throw error
+            }
+            
+            return 0 // Default value if the document or field doesn't exist
+    }
+    
+    func saveStreaks(current: Int, highest: Int) {
+        streakRef = database.collection("streaks")
+        streakRef?.document("streak").updateData(["current": current, "highest": highest])
+        
+    }
+    
 }
