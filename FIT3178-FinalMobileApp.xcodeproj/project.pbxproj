@@ -23,6 +23,7 @@
 		85224A7C29F2556E00A27813 /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85224A7B29F2556E00A27813 /* DatabaseProtocol.swift */; };
 		85224A8029F25EA900A27813 /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85224A7F29F25EA900A27813 /* FirebaseController.swift */; };
 		85224A8229F270DA00A27813 /* DailyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85224A8129F270DA00A27813 /* DailyTask.swift */; };
+		855078CC2A1725DD0053C6EC /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855078CB2A1725DD0053C6EC /* WeatherViewController.swift */; };
 		856971E62A0CEDDE002F639C /* EditableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856971E52A0CEDDE002F639C /* EditableTableViewCell.swift */; };
 		8571D61C2A08A44100A5C4F1 /* TaskProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8571D61B2A08A44100A5C4F1 /* TaskProtocol.swift */; };
 		8571D6202A08C9B900A5C4F1 /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8571D61F2A08C9B900A5C4F1 /* TaskTableViewCell.xib */; };
@@ -51,6 +52,7 @@
 		85224A7B29F2556E00A27813 /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
 		85224A7F29F25EA900A27813 /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
 		85224A8129F270DA00A27813 /* DailyTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTask.swift; sourceTree = "<group>"; };
+		855078CB2A1725DD0053C6EC /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		856971E52A0CEDDE002F639C /* EditableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableTableViewCell.swift; sourceTree = "<group>"; };
 		8571D61B2A08A44100A5C4F1 /* TaskProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskProtocol.swift; sourceTree = "<group>"; };
 		8571D61F2A08C9B900A5C4F1 /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				85224A6B29F24D5D00A27813 /* AddTaskViewController.swift */,
 				852033F82A035A4A0098FAD6 /* EditTaskViewController.swift */,
 				85B37E262A15B8AD00558745 /* TaskStreakViewController.swift */,
+				855078CB2A1725DD0053C6EC /* WeatherViewController.swift */,
 				8571D61B2A08A44100A5C4F1 /* TaskProtocol.swift */,
 				85224A8129F270DA00A27813 /* DailyTask.swift */,
 				85D430892A0C7D4E00553189 /* SubTask.swift */,
@@ -224,6 +227,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				852033F92A035A4A0098FAD6 /* EditTaskViewController.swift in Sources */,
+				855078CC2A1725DD0053C6EC /* WeatherViewController.swift in Sources */,
 				85224A8029F25EA900A27813 /* FirebaseController.swift in Sources */,
 				85224A7C29F2556E00A27813 /* DatabaseProtocol.swift in Sources */,
 				858D665229F76AC2005B5A35 /* TaskTableViewCell.swift in Sources */,
