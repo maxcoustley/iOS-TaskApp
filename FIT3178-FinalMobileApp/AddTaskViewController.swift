@@ -36,6 +36,27 @@ class AddTaskViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.present(alertController, animated: true, completion: nil)
     }
     
+    @IBAction func swipeRightGesture(_ sender: Any) {
+        guard let name = subtaskName.text
+        else {
+            return
+        }
+        if name.isEmpty {
+            var errorMsg = "Please ensure all fields are filled:\n"
+                if name.isEmpty {
+                    errorMsg += "- Must provide a name\n"
+                }
+            displayMessage(title: "Not all fields filled", message: errorMsg)
+            return
+        }
+        else {
+            let subtask = SubTask()
+            subtask.name = name
+            subtask.check = false
+            subtasks.append(subtask)
+            subTaskTableView.reloadData()
+        }
+    }
     
     @IBAction func createTask(_ sender: Any) {
         guard let name = nameTextField.text
