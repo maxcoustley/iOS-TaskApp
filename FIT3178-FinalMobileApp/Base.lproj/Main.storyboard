@@ -50,7 +50,11 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Daily Task List" id="WC7-bh-RwY">
                         <leftBarButtonItems>
-                            <barButtonItem title="Item" image="calendar" catalog="system" id="AJE-n6-Fwk"/>
+                            <barButtonItem title="Item" image="calendar" catalog="system" id="AJE-n6-Fwk">
+                                <connections>
+                                    <segue destination="RxW-Bx-t1e" kind="show" id="VmO-A6-nH3"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem title="Item" image="cloud" catalog="system" id="8mW-82-J2e">
                                 <connections>
                                     <segue destination="CC1-M4-pQn" kind="show" id="ZsE-kY-utf"/>
@@ -75,6 +79,32 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m7K-4D-6bz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="987" y="-52"/>
+        </scene>
+        <!--Calendar-->
+        <scene sceneID="G0t-I3-YFr">
+            <objects>
+                <viewController id="RxW-Bx-t1e" customClass="CalendarViewController" customModule="FIT3178_FinalMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PKv-SX-6Z7">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gYo-6O-drz" customClass="FSCalendar">
+                                <rect key="frame" x="16" y="210" width="361" height="263"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ETn-Kf-BcZ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Calendar" id="IMJ-xd-ePQ"/>
+                    <connections>
+                        <outlet property="calendarView" destination="gYo-6O-drz" id="fsL-6G-aP2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GnL-Q2-emi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-724.4274809160305" y="-602.11267605633805"/>
         </scene>
         <!--Weather -->
         <scene sceneID="6YV-3d-5Rw">

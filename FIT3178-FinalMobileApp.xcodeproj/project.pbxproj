@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		850D2E3229F617950032E05B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 850D2E3129F617950032E05B /* GoogleService-Info.plist */; };
+		8515396C2A1B0223003E9EA5 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8515396B2A1B0223003E9EA5 /* CalendarViewController.swift */; };
 		852033F92A035A4A0098FAD6 /* EditTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852033F82A035A4A0098FAD6 /* EditTaskViewController.swift */; };
 		85224A5629F2395400A27813 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85224A5529F2395400A27813 /* AppDelegate.swift */; };
 		85224A5829F2395400A27813 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85224A5729F2395400A27813 /* SceneDelegate.swift */; };
@@ -26,11 +27,11 @@
 		855078CC2A1725DD0053C6EC /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855078CB2A1725DD0053C6EC /* WeatherViewController.swift */; };
 		856971E62A0CEDDE002F639C /* EditableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856971E52A0CEDDE002F639C /* EditableTableViewCell.swift */; };
 		8571D61C2A08A44100A5C4F1 /* TaskProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8571D61B2A08A44100A5C4F1 /* TaskProtocol.swift */; };
-		8571D6202A08C9B900A5C4F1 /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8571D61F2A08C9B900A5C4F1 /* TaskTableViewCell.xib */; };
 		858D665229F76AC2005B5A35 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858D665129F76AC2005B5A35 /* TaskTableViewCell.swift */; };
 		858D665429F77559005B5A35 /* checkbox-unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 858D665329F77559005B5A35 /* checkbox-unchecked.png */; };
 		858D665629F77563005B5A35 /* checkbox-checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 858D665529F77563005B5A35 /* checkbox-checked.png */; };
 		858D665829F77C7A005B5A35 /* ExpandedTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858D665729F77C7A005B5A35 /* ExpandedTaskTableViewCell.swift */; };
+		85A494BD2A1B13D800BD9141 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 85A494BC2A1B13D800BD9141 /* FSCalendar */; };
 		85AD806B2A11C6710066096B /* SubtaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85AD806A2A11C6710066096B /* SubtaskTableViewCell.swift */; };
 		85B37E272A15B8AD00558745 /* TaskStreakViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B37E262A15B8AD00558745 /* TaskStreakViewController.swift */; };
 		85D4308A2A0C7D4E00553189 /* SubTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D430892A0C7D4E00553189 /* SubTask.swift */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		850D2E3129F617950032E05B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Users/mcou0008/Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8515396B2A1B0223003E9EA5 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		852033F82A035A4A0098FAD6 /* EditTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskViewController.swift; sourceTree = "<group>"; };
 		85224A5229F2395400A27813 /* FIT3178-FinalMobileApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FIT3178-FinalMobileApp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85224A5529F2395400A27813 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -55,7 +57,6 @@
 		855078CB2A1725DD0053C6EC /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		856971E52A0CEDDE002F639C /* EditableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableTableViewCell.swift; sourceTree = "<group>"; };
 		8571D61B2A08A44100A5C4F1 /* TaskProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskProtocol.swift; sourceTree = "<group>"; };
-		8571D61F2A08C9B900A5C4F1 /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
 		858D665129F76AC2005B5A35 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		858D665329F77559005B5A35 /* checkbox-unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkbox-unchecked.png"; path = "../../../../../../Users/mcou0008/Downloads/checkbox-unchecked.png"; sourceTree = "<group>"; };
 		858D665529F77563005B5A35 /* checkbox-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkbox-checked.png"; path = "../../../../../../Users/mcou0008/Downloads/checkbox-checked.png"; sourceTree = "<group>"; };
@@ -71,6 +72,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				85224A7129F2528A00A27813 /* FirebaseAuth in Frameworks */,
+				85A494BD2A1B13D800BD9141 /* FSCalendar in Frameworks */,
 				85224A7329F2528A00A27813 /* FirebaseFirestore in Frameworks */,
 				85224A7529F2528A00A27813 /* FirebaseFirestoreSwift in Frameworks */,
 			);
@@ -79,6 +81,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8515396A2A1B01FF003E9EA5 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				85224A6929F2474F00A27813 /* DailyTaskTableViewController.swift */,
+				85224A6B29F24D5D00A27813 /* AddTaskViewController.swift */,
+				852033F82A035A4A0098FAD6 /* EditTaskViewController.swift */,
+				85B37E262A15B8AD00558745 /* TaskStreakViewController.swift */,
+				855078CB2A1725DD0053C6EC /* WeatherViewController.swift */,
+				8515396B2A1B0223003E9EA5 /* CalendarViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
 		85224A4929F2395400A27813 = {
 			isa = PBXGroup;
 			children = (
@@ -105,19 +120,14 @@
 				85224A5E29F2395500A27813 /* Assets.xcassets */,
 				85224A6029F2395500A27813 /* LaunchScreen.storyboard */,
 				85224A6329F2395500A27813 /* Info.plist */,
+				8515396A2A1B01FF003E9EA5 /* View Controllers */,
 				85AD806C2A11C67A0066096B /* Table View Cells */,
-				85224A6929F2474F00A27813 /* DailyTaskTableViewController.swift */,
-				85224A6B29F24D5D00A27813 /* AddTaskViewController.swift */,
-				852033F82A035A4A0098FAD6 /* EditTaskViewController.swift */,
-				85B37E262A15B8AD00558745 /* TaskStreakViewController.swift */,
-				855078CB2A1725DD0053C6EC /* WeatherViewController.swift */,
 				8571D61B2A08A44100A5C4F1 /* TaskProtocol.swift */,
 				85224A8129F270DA00A27813 /* DailyTask.swift */,
 				85D430892A0C7D4E00553189 /* SubTask.swift */,
 				858D665329F77559005B5A35 /* checkbox-unchecked.png */,
 				858D665529F77563005B5A35 /* checkbox-checked.png */,
 				850D2E3129F617950032E05B /* GoogleService-Info.plist */,
-				8571D61F2A08C9B900A5C4F1 /* TaskTableViewCell.xib */,
 			);
 			path = "FIT3178-FinalMobileApp";
 			sourceTree = "<group>";
@@ -163,6 +173,7 @@
 				85224A7029F2528A00A27813 /* FirebaseAuth */,
 				85224A7229F2528A00A27813 /* FirebaseFirestore */,
 				85224A7429F2528A00A27813 /* FirebaseFirestoreSwift */,
+				85A494BC2A1B13D800BD9141 /* FSCalendar */,
 			);
 			productName = "FIT3178-FinalMobileApp";
 			productReference = 85224A5229F2395400A27813 /* FIT3178-FinalMobileApp.app */;
@@ -194,6 +205,7 @@
 			mainGroup = 85224A4929F2395400A27813;
 			packageReferences = (
 				85224A6F29F2528A00A27813 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				85A494BB2A1B13D800BD9141 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 85224A5329F2395400A27813 /* Products */;
 			projectDirPath = "";
@@ -215,7 +227,6 @@
 				85224A5F29F2395500A27813 /* Assets.xcassets in Resources */,
 				85224A5D29F2395400A27813 /* Main.storyboard in Resources */,
 				858D665429F77559005B5A35 /* checkbox-unchecked.png in Resources */,
-				8571D6202A08C9B900A5C4F1 /* TaskTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +243,7 @@
 				85224A7C29F2556E00A27813 /* DatabaseProtocol.swift in Sources */,
 				858D665229F76AC2005B5A35 /* TaskTableViewCell.swift in Sources */,
 				85AD806B2A11C6710066096B /* SubtaskTableViewCell.swift in Sources */,
+				8515396C2A1B0223003E9EA5 /* CalendarViewController.swift in Sources */,
 				85B37E272A15B8AD00558745 /* TaskStreakViewController.swift in Sources */,
 				858D665829F77C7A005B5A35 /* ExpandedTaskTableViewCell.swift in Sources */,
 				85224A5629F2395400A27813 /* AppDelegate.swift in Sources */,
@@ -470,6 +482,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		85A494BB2A1B13D800BD9141 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -487,6 +507,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 85224A6F29F2528A00A27813 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
+		};
+		85A494BC2A1B13D800BD9141 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 85A494BB2A1B13D800BD9141 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
