@@ -12,6 +12,7 @@ class EditTaskViewController: UIViewController, UITableViewDelegate, UITableView
     weak var databaseController: DatabaseProtocol?
     var taskEditing: DailyTask!
     
+    @IBOutlet weak var subtaskName: UITextField!
     @IBOutlet weak var subTaskTableView: UITableView!
     @IBOutlet weak var taskName: UITextField!
     override func viewDidLoad() {
@@ -53,6 +54,51 @@ class EditTaskViewController: UIViewController, UITableViewDelegate, UITableView
         else{
             let _ = databaseController?.editTask(name: name, check: false, subtasks: taskEditing.subtasks, editedTask: taskEditing)
             navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    @IBAction func addSubtask(_ sender: Any) {
+        guard let name = subtaskName.text
+        else {
+            return
+        }
+        if name.isEmpty {
+            var errorMsg = "Please ensure all fields are filled:\n"
+                if name.isEmpty {
+                    errorMsg += "- Must provide a name\n"
+                }
+            displayMessage(title: "Not all fields filled", message: errorMsg)
+            return
+        }
+        else {
+            let subtask = SubTask()
+            subtask.name = name
+            subtask.check = false
+            taskEditing.subtasks.append(subtask)
+            subTaskTableView.reloadData()
+        }
+    }
+    
+    
+    @IBAction func swipeRightGesture(_ sender: Any) {
+        guard let name = subtaskName.text
+        else {
+            return
+        }
+        if name.isEmpty {
+            var errorMsg = "Please ensure all fields are filled:\n"
+                if name.isEmpty {
+                    errorMsg += "- Must provide a name\n"
+                }
+            displayMessage(title: "Not all fields filled", message: errorMsg)
+            return
+        }
+        else {
+            let subtask = SubTask()
+            subtask.name = name
+            subtask.check = false
+            taskEditing.subtasks.append(subtask)
+            subTaskTableView.reloadData()
         }
     }
     

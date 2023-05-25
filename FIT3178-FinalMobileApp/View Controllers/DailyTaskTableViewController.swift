@@ -226,6 +226,9 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         }
         isSectionExpanded[section] = !x // Toggle expanded/collapsed state
         let indexSet = IndexSet(integer: section)
+        if allTasks[section].subtasks.count == 0 {
+            displayMessage(title: "No subtasks", message: "There are no subtasks for this task")
+        }
         tableView.reloadData()
         //tableView.reloadSections(indexSet, with: .automatic) // Update table view display
    }
@@ -258,7 +261,8 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         
         //return subtask cell
         //create subtask cell class + maybe get rid of expanded view cell class
-        //clicking on task cell will expand the subtask cells?
+        //clicking on task cell will expand the subtask cells
+        
         if allTasks[indexPath.section].subtasks[indexPath.row].check == true {
             let mover = allTasks.remove(at: indexPath.row)
             let numberOfRows = tableView.numberOfRows(inSection: indexPath.section)

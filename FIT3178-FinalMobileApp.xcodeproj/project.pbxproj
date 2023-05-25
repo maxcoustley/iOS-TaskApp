@@ -35,6 +35,7 @@
 		85AD806B2A11C6710066096B /* SubtaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85AD806A2A11C6710066096B /* SubtaskTableViewCell.swift */; };
 		85B37E272A15B8AD00558745 /* TaskStreakViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B37E262A15B8AD00558745 /* TaskStreakViewController.swift */; };
 		85D4308A2A0C7D4E00553189 /* SubTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D430892A0C7D4E00553189 /* SubTask.swift */; };
+		85EB14572A1F2C5D00894E23 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 85EB14562A1F2C5D00894E23 /* AlamofireImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 			files = (
 				85224A7129F2528A00A27813 /* FirebaseAuth in Frameworks */,
 				85A494BD2A1B13D800BD9141 /* FSCalendar in Frameworks */,
+				85EB14572A1F2C5D00894E23 /* AlamofireImage in Frameworks */,
 				85224A7329F2528A00A27813 /* FirebaseFirestore in Frameworks */,
 				85224A7529F2528A00A27813 /* FirebaseFirestoreSwift in Frameworks */,
 			);
@@ -174,6 +176,7 @@
 				85224A7229F2528A00A27813 /* FirebaseFirestore */,
 				85224A7429F2528A00A27813 /* FirebaseFirestoreSwift */,
 				85A494BC2A1B13D800BD9141 /* FSCalendar */,
+				85EB14562A1F2C5D00894E23 /* AlamofireImage */,
 			);
 			productName = "FIT3178-FinalMobileApp";
 			productReference = 85224A5229F2395400A27813 /* FIT3178-FinalMobileApp.app */;
@@ -206,6 +209,7 @@
 			packageReferences = (
 				85224A6F29F2528A00A27813 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				85A494BB2A1B13D800BD9141 /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				85EB14552A1F2C5D00894E23 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
 			);
 			productRefGroup = 85224A5329F2395400A27813 /* Products */;
 			projectDirPath = "";
@@ -490,6 +494,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		85EB14552A1F2C5D00894E23 /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/AlamofireImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -512,6 +524,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 85A494BB2A1B13D800BD9141 /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
+		};
+		85EB14562A1F2C5D00894E23 /* AlamofireImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 85EB14552A1F2C5D00894E23 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			productName = AlamofireImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

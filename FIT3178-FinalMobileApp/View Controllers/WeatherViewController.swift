@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreLocation
+import AlamofireImage
 
 class WeatherViewController: UIViewController {
 
@@ -14,7 +15,10 @@ class WeatherViewController: UIViewController {
 
     @IBOutlet weak var tempLabel: UILabel!
     
+    @IBOutlet weak var windLabel: UILabel!
+    @IBOutlet weak var precipLabel: UILabel!
     @IBOutlet weak var iconImage: UIImageView!
+    @IBOutlet weak var humidLabel: UILabel!
     private let weatherAPIKey = "a2232bc8a53a4f4c9fe41551231905"
     private let weatherAPIURL = "https://api.weatherapi.com/v1"
     private var location = "Melbourne"
@@ -49,20 +53,23 @@ class WeatherViewController: UIViewController {
                     self?.updateUI(with: weather)
                 }
             }
+            
         }
         
         task.resume()
     }
     
     private func updateUI(with weather: WeatherData) {
-        tempLabel.text = "\(weather.current.temp_c)°C"
+        tempLabel.text = "Temperature: \(weather.current.temp_c)°C"
         conditionLabel.text = weather.current.condition.text
-        if let url = URL(string: weather.current.condition.icon),
-           let data = try? Data(contentsOf: url),
-           let image = UIImage(data: data) {
-               // Display the image in a UIImageView
-               iconImage.image = image
+        windLabel.text = "Wind: \(weather.current.wind_kph) KPH"
+        precipLabel.text = "Precipitation: \(weather.current.precip_mm) mm"
+        humidLabel.text = "Humidity: \(weather.current.humidity)"
+        
+        if let url = URL(string: weather.current.condition.icon) {
+            iconImage.af.setImage(withURL: url)
         }
+        //download own images and create conditional based on weather condition
         
     }
     
@@ -77,11 +84,17 @@ class WeatherViewController: UIViewController {
     struct CurrentWeather: Codable {
         let temp_c: Double
         let condition: WeatherCondition
+        let wind_kph: Double
+        let precip_mm: Double
+        let humidity: Int
         
         
         enum CodingKeys: String, CodingKey {
             case temp_c
             case condition
+            case wind_kph
+            case precip_mm
+            case humidity
            
         }
     }
