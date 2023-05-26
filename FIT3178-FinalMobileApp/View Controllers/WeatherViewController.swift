@@ -11,6 +11,7 @@ import AlamofireImage
 
 class WeatherViewController: UIViewController {
 
+    @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var conditionLabel: UILabel!
 
     @IBOutlet weak var tempLabel: UILabel!
@@ -25,6 +26,7 @@ class WeatherViewController: UIViewController {
     private let locationManager = CLLocationManager()
     private var isLocationUpdated = false
     
+    @IBOutlet weak var containerView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,6 +34,13 @@ class WeatherViewController: UIViewController {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+        backgroundImage.image = UIImage(named: "bg.jpg")
+        backgroundImage.frame = UIScreen.main.bounds
+        backgroundImage.contentMode = .scaleToFill
+        backgroundImage.clipsToBounds = true
+        containerView.layer.cornerRadius = 10
+        containerView.layer.masksToBounds = true
+        
         fetchWeatherData()
         
     }
