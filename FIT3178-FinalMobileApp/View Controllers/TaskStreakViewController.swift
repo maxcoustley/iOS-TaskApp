@@ -41,6 +41,7 @@ class TaskStreakViewController: UIViewController {
     func handleHighestStreakResult(highest: Int?, error: Error?) {
         if let highest = highest {
             highestStreak.text = String(highest)
+            highestStreak.accessibilityLabel = "Highest streak is \(String(highest))"
         } else if let error = error {
             print("Error: \(error.localizedDescription)")
         }
@@ -60,6 +61,7 @@ class TaskStreakViewController: UIViewController {
     func handleCurrentStreakResult(current: Int?, error: Error?) {
         if let current = current {
             currentStreak.text = String(current)
+            currentStreak.accessibilityLabel = "Current streak is \(String(current))"
         } else if let error = error {
             print("Error: \(error.localizedDescription)")
         }

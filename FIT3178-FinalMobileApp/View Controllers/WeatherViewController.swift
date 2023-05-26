@@ -61,14 +61,38 @@ class WeatherViewController: UIViewController {
     
     private func updateUI(with weather: WeatherData) {
         tempLabel.text = "Temperature: \(weather.current.temp_c)°C"
+        tempLabel.accessibilityLabel = "Temperature: \(weather.current.temp_c)°C"
         conditionLabel.text = weather.current.condition.text
+        conditionLabel.accessibilityLabel = weather.current.condition.text
         windLabel.text = "Wind: \(weather.current.wind_kph) KPH"
+        windLabel.accessibilityLabel = "Wind: \(weather.current.wind_kph) KPH"
         precipLabel.text = "Precipitation: \(weather.current.precip_mm) mm"
+        precipLabel.accessibilityLabel = "Precipitation: \(weather.current.precip_mm) mm"
         humidLabel.text = "Humidity: \(weather.current.humidity)"
+        humidLabel.accessibilityLabel = "Humidity: \(weather.current.humidity)"
         
-        if let url = URL(string: weather.current.condition.icon) {
-            iconImage.af.setImage(withURL: url)
+        
+        let str = weather.current.condition.icon
+        
+        iconImage.contentMode = .scaleAspectFit
+        
+        DispatchQueue.main.async {
+            let fileManager = FileManager.default
+            if fileManager.fileExists(atPath: "/Users/mcou0008/Downloads/weather/64x64/day/395.png"){
+                if let image = UIImage(contentsOfFile: "/Users/mcou0008/Downloads/weather/64x64/day/\(str.suffix(7))"){
+                    print("Image loaded successfully: \(image)")
+                    self.iconImage.image = image
+                }
+                else {
+                    print("Failed to load image")
+                }
+            }
+            else {
+                print("file doesn't exist")
+            }
         }
+        
+        
         //download own images and create conditional based on weather condition
         
     }
