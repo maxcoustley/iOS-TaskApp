@@ -8,6 +8,7 @@
 import UIKit
 import MobileCoreServices
 import UserNotifications
+import Foundation
 
 class DailyTaskTableViewController: UITableViewController, DatabaseListener, UITableViewDragDelegate{
     
@@ -21,6 +22,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
     var checkbox = false
     var checkedTask: TaskTableViewCell?
     var editButton: UIButton!
+    var deleteButton: UIButton!
     var taskEditing: DailyTask!
     var isSectionExpanded: [Bool] = []
     var tasksCompleted: Bool = false
@@ -105,7 +107,9 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         } else {
             currentStreak = 0
         }
-        databaseController?.saveStreaks(current: currentStreak, highest: highestStreak)
+        let defaults = UserDefaults.standard
+        defaults.set(highestStreak, forKey: "highest")
+        defaults.set(currentStreak, forKey: "current")
     }
     
     func dailyCheck() {
@@ -214,7 +218,24 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
 
         cell.accessoryView?.addSubview(editButton)
         
+        deleteButton = UIButton(type: .system)
+        deleteButton.frame = CGRect(x: 130, y: 0, width: 50, height: 30)
+        deleteButton.setTitle("Delete", for: .normal)
+        deleteButton.addTarget(self, action: #selector(deleteSection(_:)), for: .touchUpInside)
+        deleteButton.tag = section
+        cell.accessoryView?.addSubview(deleteButton)
+        
         return cell
+    }
+    
+    @objc func deleteSection(_ sender: UIButton) {
+        let section = sender.tag
+        // Perform any necessary actions to delete the section data or update your data source
+        
+        // Remove the section from the table view
+        databaseController?.deleteTaskRow(taskRow: section)
+        
+        //remove task from database
     }
     
     @objc func headerTapped(_ sender: UITapGestureRecognizer) {

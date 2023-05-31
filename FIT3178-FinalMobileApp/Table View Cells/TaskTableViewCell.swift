@@ -11,6 +11,7 @@ class TaskTableViewCell: UITableViewCell {
     let checkbox = UIButton()
     var isExpanded = false
     var editButton: UIButton!
+    var deleteButton: UIButton!
     weak var databaseController: DatabaseProtocol?
     weak var taskController: TaskProtocol?
     
@@ -39,15 +40,22 @@ class TaskTableViewCell: UITableViewCell {
             editButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
         
+        deleteButton = UIButton(type: .system)
+        deleteButton.setTitle("Del", for: .normal)
+        deleteButton.addTarget(self, action: #selector(deleteSection(_:)), for: .touchUpInside)
+        contentView.addSubview(deleteButton)
         
-        let taskAccessoryView = UIView(frame:   CGRect(x: 0, y: 0, width: 150, height: 44))
+        
+        let taskAccessoryView = UIView(frame:   CGRect(x: 0, y: 0, width: 200, height: 44))
         let buttonPadding: CGFloat = 10
         let totalWidth = checkbox.frame.width + buttonPadding + editButton.frame.width
         checkbox.frame.origin = CGPoint(x: (taskAccessoryView.bounds.width - totalWidth) / 2, y: (taskAccessoryView.bounds.height - checkbox.frame.height) / 2)
         editButton.frame.origin = CGPoint(x: checkbox.frame.maxX + buttonPadding, y: (taskAccessoryView.bounds.height - editButton.frame.height) / 2)
+        deleteButton.frame.origin = CGPoint(x: checkbox.frame.maxX + buttonPadding, y: (taskAccessoryView.bounds.height - editButton.frame.height) / 2)
         
         taskAccessoryView.addSubview(checkbox)
         taskAccessoryView.addSubview(editButton)
+        taskAccessoryView.addSubview(deleteButton)
         
         accessoryView = taskAccessoryView
                                        
@@ -107,6 +115,24 @@ class TaskTableViewCell: UITableViewCell {
         
         self.backgroundColor = UIColor.gray
         databaseController?.checkTask(taskRow: indexPath.row, newCheck: sender.isSelected)
+    }
+    
+    @objc func deleteSection(_ sender: UIButton) {
+    
+        // Perform any necessary actions to delete the section data or update your data source
+        
+        guard let tableView = self.superview as? UITableView else {
+            print("test1")
+            return
+        }
+        let button = sender.convert(CGPoint.zero, to: tableView)
+        guard let indexPath = tableView.indexPathForRow(at: button) else {
+            print("Test2")
+            return
+        }
+        databaseController?.deleteTaskRow(taskRow: indexPath.row)
+        print("test")
+        
     }
 
     override func awakeFromNib() {

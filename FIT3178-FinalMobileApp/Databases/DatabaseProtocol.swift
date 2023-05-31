@@ -39,10 +39,8 @@ protocol DatabaseProtocol: AnyObject {
     func addTask(name: String, check: Bool, subtasks: [SubTask]) -> DailyTask
     func editTask(name: String, check: Bool, subtasks: [SubTask], editedTask: DailyTask)
     func deleteTask(task: DailyTask)
+    func deleteTaskRow(taskRow: Int)
     func checkTask(taskRow: Int, newCheck: Bool)
     func deleteSubtask(subtask: SubTask, task: DailyTask)
-    func fetchHighestStreak() async throws -> Int
-    func fetchCurrentStreak() async throws-> Int
-    func saveStreaks(current: Int, highest: Int)
     
 }

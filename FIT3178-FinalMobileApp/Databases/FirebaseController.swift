@@ -97,6 +97,13 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
     }
     
+    func deleteTaskRow(taskRow: Int) {
+        let task = taskList[taskRow]
+        if let taskID = task.id {
+            tasksRef?.document(taskID).delete()
+        }
+    }
+    
     func deleteSubtask(subtask: SubTask, task: DailyTask) {
         if let taskID = task.id {
             tasksRef?.document(taskID).updateData(["subtasks." + String(subtask.id!): FieldValue.delete()])
@@ -152,42 +159,6 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
     }
     
-    func fetchHighestStreak() async throws-> Int {
-        let streakRef = database.collection("streaks").document("streak")
-            
-            do {
-                let documentSnapshot = try await streakRef.getDocument()
-                
-                if let highest = documentSnapshot.data()?["highest"] as? Int {
-                    return highest
-                }
-            } catch {
-                throw error
-            }
-            
-            return 0 // Default value if the document or field doesn't exist
-    }
     
-    func fetchCurrentStreak() async throws-> Int {
-        let streakRef = database.collection("streaks").document("streak")
-            
-            do {
-                let documentSnapshot = try await streakRef.getDocument()
-                
-                if let highest = documentSnapshot.data()?["current"] as? Int {
-                    return highest
-                }
-            } catch {
-                throw error
-            }
-            
-            return 0 // Default value if the document or field doesn't exist
-    }
-    
-    func saveStreaks(current: Int, highest: Int) {
-        streakRef = database.collection("streaks")
-        streakRef?.document("streak").updateData(["current": current, "highest": highest])
-        
-    }
     
 }
