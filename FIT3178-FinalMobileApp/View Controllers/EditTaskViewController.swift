@@ -7,10 +7,12 @@
 
 import UIKit
 
-class EditTaskViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class EditTaskViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
     weak var databaseController: DatabaseProtocol?
     var taskEditing: DailyTask!
+    var ogTask: DailyTask!
+    
     
     @IBOutlet weak var subtaskName: UITextField!
     @IBOutlet weak var subTaskTableView: UITableView!
@@ -25,6 +27,9 @@ class EditTaskViewController: UIViewController, UITableViewDelegate, UITableView
         subTaskTableView.register(EditableTableViewCell.self, forCellReuseIdentifier: "editSubTaskCell")
         subTaskTableView.dataSource = self
         subTaskTableView.delegate = self
+        ogTask = taskEditing
+        
+        
     }
     
 
@@ -101,6 +106,17 @@ class EditTaskViewController: UIViewController, UITableViewDelegate, UITableView
             subTaskTableView.reloadData()
         }
     }
+
+    
+    //textfield delegate methods
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        // The text field has finished editing
+        // You can perform any desired actions or updates here
+        taskEditing.subtasks[textField.tag].name = textField.text
+        subTaskTableView.reloadData()
+        
+    }
+    
     
     // Override to support conditional editing of the table view.
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -113,9 +129,9 @@ class EditTaskViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
             // Delete the row from the data source
-            let task = taskEditing.subtasks[indexPath.row]
+            taskEditing.subtasks.remove(at: indexPath.row)
+            subTaskTableView.reloadData()
             //addSubtask db controller
-            let _ = databaseController?.deleteSubtask(subtask: task, task: taskEditing)
         }
     }
 
@@ -136,9 +152,10 @@ class EditTaskViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "editSubTaskCell", for: indexPath) as! EditableTableViewCell
         let subtask = taskEditing.subtasks[indexPath.row]
-        print(subtask.name!)
         cell.editedTask = subtask
         cell.textField.text = subtask.name!
+        cell.textField.tag = indexPath.row
+        cell.textField.delegate = self
         taskEditing.subtasks[indexPath.row].name = cell.textField.text
         return cell
         

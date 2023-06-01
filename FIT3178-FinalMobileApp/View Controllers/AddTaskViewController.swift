@@ -103,6 +103,23 @@ class AddTaskViewController: UIViewController, UITableViewDelegate, UITableViewD
         return subtasks.count
     }
     
+    // Override to support conditional editing of the table view.
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+   
+
+    // Override to support editing the table view.
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            // Delete the row from the data source
+            subtasks.remove(at: indexPath.row)
+            subTaskTableView.reloadData()
+            //addSubtask db controller
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "addSubTaskCell", for: indexPath)
         var content = cell.defaultContentConfiguration()

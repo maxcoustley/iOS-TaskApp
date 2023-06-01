@@ -59,6 +59,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
                 self.scheduleNotification()
             }
         }
+        tableView.reloadData()
         
         dailyCheck()
         
@@ -151,11 +152,13 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
     // MARK: - Table view data source
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        tableView.reloadData()
         databaseController?.addListener(listener: self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        tableView.reloadData()
         databaseController?.removeListener(listener: self)
     }
     
@@ -201,7 +204,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         content.text = allTasks[section].name
         cell.contentConfiguration = content
         
-        editButton = UIButton(type: .system)
+        let editButton = UIButton(type: .system)
         editButton.frame = CGRect(x: 40, y: 0, width: 30, height: 30)
         editButton.setTitle("Edit", for: .normal)
         editButton.addTarget(self, action: #selector(editButtonTapped(_:)), for: .touchUpInside)
@@ -218,7 +221,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
 
         cell.accessoryView?.addSubview(editButton)
         
-        deleteButton = UIButton(type: .system)
+        let deleteButton = UIButton(type: .system)
         deleteButton.frame = CGRect(x: 130, y: 0, width: 50, height: 30)
         deleteButton.setTitle("Delete", for: .normal)
         deleteButton.addTarget(self, action: #selector(deleteSection(_:)), for: .touchUpInside)
@@ -315,9 +318,12 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
     }	
     
     @objc func editButtonTapped(_ sender: UIButton) {
-        let buttonPath = editButton.tag
+        let buttonPath = sender.tag
+        
         
         taskEditing = allTasks[buttonPath]
+        
+        print(taskEditing.name)
         performSegue(withIdentifier: "editTaskSegue", sender: sender)
         
         
@@ -434,6 +440,10 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         if segue.identifier == "editTaskSegue" {
             if let destinationVC = segue.destination as? EditTaskViewController {
                 destinationVC.taskEditing = taskEditing
+                print(taskEditing.name)
+            }
+            else {
+                print("test1")
             }
         }
         
@@ -445,9 +455,12 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
 
 extension DailyTaskTableViewController: TaskProtocol {
     func didTapButtonInCell(_ cell: TaskTableViewCell, button: UIButton) {
+        let buttonPath = button.tag
+
+        taskEditing = allTasks[buttonPath]
         self.performSegue(withIdentifier: "editTaskSegue", sender: button)
     }
-    
+
     func checkboxTap(_ cell: TaskTableViewCell) {
         
         checkbox = true

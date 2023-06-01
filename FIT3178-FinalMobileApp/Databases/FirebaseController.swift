@@ -73,13 +73,14 @@ class FirebaseController: NSObject, DatabaseProtocol {
     }
     
     func editTask(name: String, check: Bool, subtasks: [SubTask], editedTask: DailyTask){
-        tasksRef?.document(String(editedTask.id!)).setData(["name": name, "check": check, "subtasks": subtasks], merge: true) { error in
-            if let error = error {
-                print("error updating document: \(error)")
-            }
-            else {
-                print("document updated successfully")
-            }
+        let subtaskDict = subtasks.map { subtask in
+            return [
+                "name": subtask.name,
+                "check": subtask.check
+            ]
+        }
+        if let taskID = editedTask.id {
+            tasksRef?.document(taskID).updateData(["name": name, "check": check, "subtasks": subtaskDict])
         }
     }
     

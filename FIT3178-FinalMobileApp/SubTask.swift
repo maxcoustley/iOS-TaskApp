@@ -13,9 +13,9 @@ class SubTask: NSObject, Codable {
     var name: String?
     var check: Bool?
     
-    init(id: String? = nil, name: String? = nil, check: Bool? = nil) {
-        self.id = id
-        self.name = name
-        self.check = check
-    }
+//    init(id: String? = nil, name: String? = nil, check: Bool? = nil) {
+//        self.id = id
+//        self.name = name
+//        self.check = check
+//    }
 }
