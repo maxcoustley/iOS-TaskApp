@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import FirebaseFirestoreSwift
+import FirebaseAuth
 
 
 class FirebaseController: NSObject, DatabaseProtocol {
@@ -85,6 +86,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     }
     
     func checkTask(taskRow: Int, newCheck: Bool) {
+        print("test")
         let task = taskList[taskRow]
         task.check = newCheck
         if let taskID = task.id {
