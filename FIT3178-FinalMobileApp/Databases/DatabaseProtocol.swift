@@ -41,6 +41,7 @@ protocol DatabaseProtocol: AnyObject {
     func deleteTask(task: DailyTask)
     func deleteTaskRow(taskRow: Int)
     func checkTask(taskRow: Int, newCheck: Bool)
-    func deleteSubtask(subtask: SubTask, task: DailyTask)
+    func checkSubtask(taskSection: Int, taskRow: Int, newCheck: Bool)
+    func deleteSubtask(subtask: SubTask, task: DailyTask, taskRow: Int)
     
 }

@@ -14,6 +14,8 @@ class SubtaskTableViewCell: UITableViewCell {
     var editButton: UIButton!
     weak var databaseController: DatabaseProtocol?
     weak var taskController: TaskProtocol?
+    var section = 0
+    var subtask: SubTask?
     
         
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -57,20 +59,31 @@ class SubtaskTableViewCell: UITableViewCell {
     
     
     @objc func checkboxTapped(_ sender: UIButton) {
+        
 
         sender.isSelected = !sender.isSelected
         checkbox.setImage(UIImage(named: isSelected ? "checkbox-checked.png" : "checkbox-unchecked.png"), for: .normal)
         
         guard let tableView = self.superview as? UITableView else {
+            
             return
         }
         let button = sender.convert(CGPoint.zero, to: tableView)
         guard let indexPath = tableView.indexPathForRow(at: button), let _ = tableView.cellForRow(at: indexPath) else {
-                return
+            
+            return
         }
         
-        self.backgroundColor = UIColor.gray
-        databaseController?.checkTask(taskRow: indexPath.row, newCheck: sender.isSelected)
+        //color change
+        if sender.isSelected == true {
+            self.backgroundColor = UIColor.lightGray
+        }
+        else {
+            self.backgroundColor = UIColor.white
+        }
+        
+        databaseController?.checkSubtask(taskSection: section, taskRow: indexPath.row, newCheck: sender.isSelected)
+        
     }
 
     override func awakeFromNib() {

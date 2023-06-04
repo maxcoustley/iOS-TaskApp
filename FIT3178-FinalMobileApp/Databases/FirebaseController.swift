@@ -86,11 +86,27 @@ class FirebaseController: NSObject, DatabaseProtocol {
     }
     
     func checkTask(taskRow: Int, newCheck: Bool) {
-        print("test")
         let task = taskList[taskRow]
         task.check = newCheck
         if let taskID = task.id {
             tasksRef?.document(taskID).updateData(["check": newCheck])
+        }
+    }
+    
+    func checkSubtask(taskSection: Int, taskRow: Int, newCheck: Bool) {
+        
+        let task = taskList[taskSection]
+        let subtasks = task.subtasks
+        subtasks[taskRow].check = newCheck
+        
+        let subtaskDict = subtasks.map { subtask in
+            return [
+                "name": subtask.name,
+                "check": subtask.check
+            ]
+        }
+        if let taskID = task.id {
+            tasksRef?.document(taskID).updateData(["name": task.name, "check": task.check, "subtasks": subtaskDict])
         }
     }
     
@@ -107,9 +123,11 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
     }
     
-    func deleteSubtask(subtask: SubTask, task: DailyTask) {
+    func deleteSubtask(subtask: SubTask, task: DailyTask, taskRow: Int) {
+        task.subtasks.remove(at: taskRow)
+        let newSubtasks = task.subtasks
         if let taskID = task.id {
-            tasksRef?.document(taskID).updateData(["subtasks." + String(subtask.id!): FieldValue.delete()])
+            tasksRef?.document(taskID).updateData(["name": task.name, "check": task.check, "subtasks": newSubtasks])
         }
     }
     

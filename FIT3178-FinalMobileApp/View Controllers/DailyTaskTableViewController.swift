@@ -48,7 +48,6 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
         tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: "TaskTableViewCell")
-        tableView.register(ExpandedTaskTableViewCell.self, forCellReuseIdentifier: "ExpandedTaskTableViewCell")
         tableView.register(SubtaskTableViewCell.self, forCellReuseIdentifier: "SubtaskTableViewCell")
 
         
@@ -56,6 +55,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         
         tableView.dragInteractionEnabled = true
         tableView.dragDelegate = self
+        tableView.dropDelegate = self
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
             if granted {
@@ -183,6 +183,22 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TaskTableViewCell") as! TaskTableViewCell
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(headerTapped(_:)))
+        cell.addGestureRecognizer(tapGesture)
+        cell.tag = section
+        var content = cell.defaultContentConfiguration()
+        content.text = allTasks[section].name
+        cell.contentConfiguration = content
+        
+        let checkbox = UIButton(type: .system)
+        checkbox.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        checkbox.addTarget(self, action: #selector(checkboxTapped(_:)), for: .touchUpInside)
+        checkbox.setImage(UIImage(named: "checkbox-checked.png"), for: .selected)
+        checkbox.setImage(UIImage(named: "checkbox-unchecked.png"), for: .normal)
+        checkbox.tag = section
+        cell.contentView.addSubview(checkbox)
+        
         if allTasks[section].check == true{
             
 //            editButton.isHidden = true
@@ -200,19 +216,6 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
             checkbox.isSelected = false
 //            cell.editButton.isHidden = false
         }
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(headerTapped(_:)))
-        cell.addGestureRecognizer(tapGesture)
-        cell.tag = section
-        var content = cell.defaultContentConfiguration()
-        content.text = allTasks[section].name
-        cell.contentConfiguration = content
-        
-        checkbox.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        checkbox.addTarget(self, action: #selector(checkboxTapped(_:)), for: .touchUpInside)
-        checkbox.setImage(UIImage(named: "checkbox-checked.png"), for: .selected)
-        checkbox.setImage(UIImage(named: "checkbox-unchecked.png"), for: .normal)
-        checkbox.tag = section
-        cell.contentView.addSubview(checkbox)
         
         let editButton = UIButton(type: .system)
         editButton.frame = CGRect(x: 40, y: 0, width: 30, height: 30)
@@ -262,13 +265,13 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         // Remove the section from the table view
         databaseController?.deleteTaskRow(taskRow: section)
         
-        //remove task from database
+        
     }
     
     @objc func checkboxTapped(_ sender: UIButton) {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TaskTableViewCell") as! TaskTableViewCell
         sender.isSelected = !sender.isSelected
-        checkbox.setImage(UIImage(named: sender.isSelected ? "checkbox-checked.png" : "checkbox-unchecked.png"), for: .normal)
+//        checkbox.setImage(UIImage(named: sender.isSelected ? "checkbox-checked.png" : "checkbox-unchecked.png"), for: .normal)
         
         if sender.isSelected == true {
             cell.backgroundColor = UIColor.lightGray
@@ -330,12 +333,12 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         //clicking on task cell will expand the subtask cells
         
         if allTasks[indexPath.section].subtasks[indexPath.row].check == true {
-            let mover = allTasks.remove(at: indexPath.row)
-            let numberOfRows = tableView.numberOfRows(inSection: indexPath.section)
-            let lastIndexPath = IndexPath(row: numberOfRows - 1, section: indexPath.section)
+//            let mover = allTasks.remove(at: indexPath.row)
+//            let numberOfRows = tableView.numberOfRows(inSection: indexPath.section)
+//            let lastIndexPath = IndexPath(row: numberOfRows - 1, section: indexPath.section)
 
-            allTasks.insert(mover, at: lastIndexPath.row)
-            taskCell.backgroundColor = UIColor.gray
+//            allTasks.insert(mover, at: lastIndexPath.row)
+            taskCell.backgroundColor = UIColor.lightGray
         }
         else {
             taskCell.backgroundColor = UIColor.white
@@ -344,6 +347,8 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         let task = allTasks[indexPath.section].subtasks[indexPath.row]
         content.text = task.name
         taskCell.contentConfiguration = content
+        taskCell.section = indexPath.section
+        taskCell.subtask = task
 
         taskCell.checkbox.isSelected = task.check ?? false
     
@@ -389,8 +394,9 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete && indexPath.section == SECTION_TASK {
             // Delete the row from the data source
-            let task = allTasks[indexPath.row]
-            databaseController?.deleteTask(task: task)
+            let task = allTasks[indexPath.section]
+            let subtask = task.subtasks[indexPath.row]
+            databaseController?.deleteSubtask(subtask: subtask, task: task, taskRow: indexPath.row)
         }
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -450,37 +456,43 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
     // MARK: - UITableViewDragDelegate
     
      func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-         let sectionHeader = allTasks[indexPath.section].name
-         let itemProvider = NSItemProvider(object: sectionHeader! as NSString)
-         let dragItem = UIDragItem(itemProvider: itemProvider)
+         let dragItem = UIDragItem(itemProvider: NSItemProvider())
          dragItem.localObject = indexPath
          return [dragItem]
      }
     
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let mover = allTasks.remove(at: sourceIndexPath.section)
-        allTasks.insert(mover, at: destinationIndexPath.section)
+        let mover = allTasks[sourceIndexPath.section].subtasks.remove(at: sourceIndexPath.row)
+        allTasks[sourceIndexPath.section].subtasks.insert(mover, at: destinationIndexPath.row)
         tableView.reloadData()
         
     }
     
     // MARK: - UITableViewDropDelegate
+    
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        let dropProposal = UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+        return dropProposal
+    }
      
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
         guard let destinationIndexPath = coordinator.destinationIndexPath else {
             return
         }
+        
         coordinator.session.loadObjects(ofClass: NSString.self) { items in
-            // Here, you can access the dropped section header object using 'items' array
-            // Perform the necessary updates in your data source and insert the section header at the destinationIndexPath
+            guard let sectionToMove = items.first as? String else {
+                return
+            }
             
-    
+            // Perform the necessary data source updates based on the dropped section header
+            // Move the section to the new index path
+            // ...
             
-            // Reload the table view to reflect the changes
             tableView.reloadData()
         }
-    }
+}
     
 
 
@@ -496,7 +508,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
                 print(taskEditing.name)
             }
             else {
-                print("test1")
+                
             }
         }
         
