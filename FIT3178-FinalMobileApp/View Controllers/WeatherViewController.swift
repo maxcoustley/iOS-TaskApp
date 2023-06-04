@@ -16,6 +16,7 @@ class WeatherViewController: UIViewController {
 
     @IBOutlet weak var tempLabel: UILabel!
     
+    @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var windLabel: UILabel!
     @IBOutlet weak var precipLabel: UILabel!
     @IBOutlet weak var iconImage: UIImageView!
@@ -41,11 +42,12 @@ class WeatherViewController: UIViewController {
         containerView.layer.cornerRadius = 10
         containerView.layer.masksToBounds = true
         
-        fetchWeatherData()
+        
         
     }
     
     private func fetchWeatherData() {
+        print("run")
         guard let url = URL(string: "\(weatherAPIURL)/current.json?key=\(weatherAPIKey)&q=\(location)") else {
                 print("Invalid API URL")
                 return
@@ -180,16 +182,22 @@ extension WeatherViewController: CLLocationManagerDelegate {
             }
             
             // Retrieve the city name from the placemark
-            if let city = placemarks?.first?.locality {
+            if var city = placemarks?.first?.locality {
                 // Use the city name as needed
                 print("City: \(city)")
+                
                 
                 // Update your UI or perform any other actions with the city name
                 DispatchQueue.main.async {
                     // Update your UI elements with the city name
                     // For example, set a label's text property
                     self!.location = city
+                    print(self!.location)
+                    self?.locationLabel.text = city
+                    self?.fetchWeatherData()
+                    
                 }
+                
             }
         }
         
