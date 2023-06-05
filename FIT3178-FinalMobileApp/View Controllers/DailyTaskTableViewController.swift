@@ -219,24 +219,20 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         
         let editButton = UIButton(type: .system)
         editButton.frame = CGRect(x: 40, y: 0, width: 30, height: 30)
-        editButton.setTitle("Edit", for: .normal)
+        editButton.setImage(UIImage(systemName: "pencil"), for: .normal)
         editButton.addTarget(self, action: #selector(editButtonTapped(_:)), for: .touchUpInside)
         editButton.isHidden = false
         editButton.clipsToBounds = false
         editButton.tag = section
         cell.contentView.addSubview(editButton)
 
-        editButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            editButton.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
-            editButton.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor)
-        ])
+       
 
         cell.accessoryView?.addSubview(editButton)
         
         let deleteButton = UIButton(type: .system)
-        deleteButton.frame = CGRect(x: 130, y: 0, width: 50, height: 30)
-        deleteButton.setTitle("Delete", for: .normal)
+        deleteButton.frame = CGRect(x: 140, y: 0, width: 50, height: 30)
+        deleteButton.setImage(UIImage(systemName: "trash.fill"), for: .normal)
         deleteButton.addTarget(self, action: #selector(deleteSection(_:)), for: .touchUpInside)
         deleteButton.tag = section
         cell.accessoryView?.addSubview(deleteButton)
@@ -245,7 +241,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         let buttonPadding: CGFloat = 10
         let totalWidth = checkbox.frame.width + buttonPadding + editButton.frame.width
         checkbox.frame.origin = CGPoint(x: (taskAccessoryView.bounds.width - totalWidth) / 2, y: (taskAccessoryView.bounds.height - checkbox.frame.height) / 2)
-        editButton.frame.origin = CGPoint(x: checkbox.frame.maxX + buttonPadding, y: (taskAccessoryView.bounds.height - editButton.frame.height) / 2)
+        editButton.frame.origin = CGPoint(x: checkbox.frame.maxX - 78, y: (taskAccessoryView.bounds.height - editButton.frame.height) / 2)
         deleteButton.frame.origin = CGPoint(x: checkbox.frame.maxX + buttonPadding, y: (taskAccessoryView.bounds.height - editButton.frame.height) / 2)
         
         taskAccessoryView.addSubview(checkbox)
