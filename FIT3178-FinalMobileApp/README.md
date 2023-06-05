@@ -1,6 +1,6 @@
 #  Acknowledgements/Attributions file
 
-__Downloads__
+__Downloads__<br>
 Weather icons: https://www.weatherapi.com/docs/#weather-icons<br>
 Download from projectFiles directory for project elements (images, multicastDelegate, googlePlist)<br>
 
