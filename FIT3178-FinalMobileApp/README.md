@@ -76,5 +76,5 @@ List of other prompts:
 - "how can you update a document from a collection reference firebase"
 - "got this error /Volumes/mcou0008/Documents/FIT3178/FIT3178-FinalMobileApp/FIT3178-FinalMobileApp/Base.lproj/Main.storyboard The subtaskTextField outlet from the EditTaskViewController to the UITextField is invalid. Outlets cannot be connected to repeating content."
 
-For prompts that concern errors in the code, instructions given from the output was likely followed to resolve the issue. If a prompt concerned implementation and provided code, the output was modified to suit the existing code.<br>
+For prompts that concern errors in the code, instructions given from the output was likely followed to resolve the issue. If a prompt concerned implementation and provided code, the fragments of the output were used or modified to suit the existing code.<br>
 
