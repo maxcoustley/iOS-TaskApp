@@ -1,5 +1,9 @@
 #  Acknowledgements/Attributions file
 
+__Downloads__
+Weather icons: https://www.weatherapi.com/docs/#weather-icons<br>
+Download from projectFiles directory for project elements (images, multicastDelegate, googlePlist)<br>
+
 __List of Third Party Libraries used__<br>
 
 Name: FireBase<br>
