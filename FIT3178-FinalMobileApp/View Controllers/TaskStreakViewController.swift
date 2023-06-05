@@ -23,6 +23,8 @@ class TaskStreakViewController: UIViewController {
         // Do any additional setup after loading the view.
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
+        
+        //Set values for streaks
         if let highest = defaults.object(forKey: "highest") as? Int {
             highestStreak.text = String(highest)
         }

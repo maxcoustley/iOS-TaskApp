@@ -7,7 +7,6 @@
 
 import UIKit
 import CoreLocation
-import AlamofireImage
 
 class WeatherViewController: UIViewController {
 
@@ -47,7 +46,7 @@ class WeatherViewController: UIViewController {
     }
     
     private func fetchWeatherData() {
-        print("run")
+        // Fetches weather data using an API call
         guard let url = URL(string: "\(weatherAPIURL)/current.json?key=\(weatherAPIKey)&q=\(location)") else {
                 print("Invalid API URL")
                 return
@@ -72,6 +71,7 @@ class WeatherViewController: UIViewController {
     }
     
     private func updateUI(with weather: WeatherData) {
+        // Set weather labels with information from API call
         tempLabel.text = "Temperature: \(weather.current.temp_c)°C"
         tempLabel.accessibilityLabel = "Temperature: \(weather.current.temp_c)°C"
         conditionLabel.text = weather.current.condition.text
@@ -88,6 +88,7 @@ class WeatherViewController: UIViewController {
         
         iconImage.contentMode = .scaleAspectFit
         
+        // Get icon image for weather
         DispatchQueue.main.async {
             let fileManager = FileManager.default
             if fileManager.fileExists(atPath: "/Users/mcou0008/Downloads/weather/64x64/day/395.png"){
@@ -103,9 +104,6 @@ class WeatherViewController: UIViewController {
                 print("file doesn't exist")
             }
         }
-        
-        
-        //download own images and create conditional based on weather condition
         
     }
     
@@ -161,6 +159,7 @@ class WeatherViewController: UIViewController {
 
 extension WeatherViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        //Obtains location of device, as it is a simulator will be a default location
         guard let location = locations.last else {
             return
         }
@@ -174,27 +173,24 @@ extension WeatherViewController: CLLocationManagerDelegate {
        
         let geocoder = CLGeocoder()
                 
-        // Perform reverse geocoding to get the city name from the location coordinate
+        // Reverse geocoding to get the city name from the location coordinate
         geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
             if let error = error {
-                // Handle any errors that occur during reverse geocoding
+                // Handle any errors
                 print("Reverse geocoding error: \(error.localizedDescription)")
                 return
             }
             
             // Retrieve the city name from the placemark
             if var city = placemarks?.first?.locality {
-                // Use the city name as needed
-                print("City: \(city)")
-                
-                
-                // Update your UI or perform any other actions with the city name
+
+                // Update UI
                 DispatchQueue.main.async {
-                    // Update your UI elements with the city name
-                    // For example, set a label's text property
+                    // Update your UI elements with the city
                     self!.location = city
-                    print(self!.location)
                     self?.locationLabel.text = city
+                    
+                    // Will now fetch weather data using the updated location value
                     self?.fetchWeatherData()
                     
                 }

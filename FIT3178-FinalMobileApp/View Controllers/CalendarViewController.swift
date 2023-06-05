@@ -25,6 +25,7 @@ class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDa
     }
     
     func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
+        // Past dates currently appear as red
         let currentDate = Date()
         let calendar = Calendar.current
         let isPastDate = calendar.compare(date, to: currentDate, toGranularity: .day) == .orderedAscending

@@ -62,6 +62,7 @@
 		8525944A2A2095F500835182 /* bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = bg.jpg; path = ../../../../../../Users/mcou0008/Downloads/bg.jpg; sourceTree = "<group>"; };
 		856971E52A0CEDDE002F639C /* EditableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableTableViewCell.swift; sourceTree = "<group>"; };
 		8571D61B2A08A44100A5C4F1 /* TaskProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskProtocol.swift; sourceTree = "<group>"; };
+		857D16642A2DAC1800B951DA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		858D665129F76AC2005B5A35 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		858D665329F77559005B5A35 /* checkbox-unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkbox-unchecked.png"; path = "../../../../../../Users/mcou0008/Downloads/checkbox-unchecked.png"; sourceTree = "<group>"; };
 		858D665529F77563005B5A35 /* checkbox-checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkbox-checked.png"; path = "../../../../../../Users/mcou0008/Downloads/checkbox-checked.png"; sourceTree = "<group>"; };
@@ -136,6 +137,7 @@
 				858D665329F77559005B5A35 /* checkbox-unchecked.png */,
 				858D665529F77563005B5A35 /* checkbox-checked.png */,
 				850D2E3129F617950032E05B /* GoogleService-Info.plist */,
+				857D16642A2DAC1800B951DA /* README.md */,
 			);
 			path = "FIT3178-FinalMobileApp";
 			sourceTree = "<group>";

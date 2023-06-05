@@ -17,6 +17,7 @@ class AddTaskViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var subtaskName: UITextField!
     @IBOutlet weak var subTaskTableView: UITableView!
     var subtasks: [SubTask] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -78,6 +79,7 @@ class AddTaskViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func addSubtask(_ sender: Any) {
+        // Adds subtask to task
         guard let name = subtaskName.text
         else {
             return
@@ -121,6 +123,7 @@ class AddTaskViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Displays any subtasks that have been created
         let cell = tableView.dequeueReusableCell(withIdentifier: "addSubTaskCell", for: indexPath)
         var content = cell.defaultContentConfiguration()
         let subtask = subtasks[indexPath.row]

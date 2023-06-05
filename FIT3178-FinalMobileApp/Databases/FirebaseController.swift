@@ -99,6 +99,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         let subtasks = task.subtasks
         subtasks[taskRow].check = newCheck
         
+        //create array of maps to use to update new subtask values
         let subtaskDict = subtasks.map { subtask in
             return [
                 "name": subtask.name,
@@ -116,6 +117,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
     }
     
+    //deletes task using indexPath.row value rather than task itself
     func deleteTaskRow(taskRow: Int) {
         let task = taskList[taskRow]
         if let taskID = task.id {

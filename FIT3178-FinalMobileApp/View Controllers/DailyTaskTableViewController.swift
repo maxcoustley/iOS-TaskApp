@@ -30,10 +30,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
     var highestStreak = 0
     
     var checkbox = UIButton()
-    
-    
-    
-    
+
     weak var databaseController: DatabaseProtocol?
     
     
@@ -78,11 +75,11 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         content.sound = .default
         
         // Create a trigger for the notification
-//        var dateComponents = DateComponents()
-//        dateComponents.hour = 12
-//        dateComponents.minute = 00
-//        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        var dateComponents = DateComponents()
+        dateComponents.hour = 12
+        dateComponents.minute = 00
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
         
         // Create a request for the notification
         let request = UNNotificationRequest(identifier: "dailyReminder", content: content, trigger: trigger)
@@ -117,6 +114,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
     }
     
     func dailyCheck() {
+        //Checks if it's the end of the day to verify if all tasks have been completed
         let calendar = Calendar.current
         let now = Date()
         
@@ -182,6 +180,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        //Header represents normal tasks
         let cell = tableView.dequeueReusableCell(withIdentifier: "TaskTableViewCell") as! TaskTableViewCell
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(headerTapped(_:)))
@@ -201,6 +200,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
         
         if allTasks[section].check == true{
             
+            // tasks moving have been removed as it causes bugs
 //            editButton.isHidden = true
 //            let mover = allTasks.remove(at: section)
 //            let numberOfRows = tableView.numberOfRows(inSection: section)
@@ -255,10 +255,9 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
 
     
     @objc func deleteSection(_ sender: UIButton) {
+        // Deletes tasks
         let section = sender.tag
-        // Perform any necessary actions to delete the section data or update your data source
-        
-        // Remove the section from the table view
+        // Remove task from FireBase
         databaseController?.deleteTaskRow(taskRow: section)
         
         
@@ -267,8 +266,8 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
     @objc func checkboxTapped(_ sender: UIButton) {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TaskTableViewCell") as! TaskTableViewCell
         sender.isSelected = !sender.isSelected
-//        checkbox.setImage(UIImage(named: sender.isSelected ? "checkbox-checked.png" : "checkbox-unchecked.png"), for: .normal)
         
+        // Change cell background color depending on if task is checked
         if sender.isSelected == true {
             cell.backgroundColor = UIColor.lightGray
         }
@@ -276,59 +275,42 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
             cell.backgroundColor = UIColor.white
         }
         
-        
-
+        // Update check value in FireBase
         databaseController?.checkTask(taskRow: sender.tag, newCheck: sender.isSelected)
         tableView.reloadData()
     }
     
     @objc func headerTapped(_ sender: UITapGestureRecognizer) {
+        // Expand cell to show subtasks for task
         guard let section = sender.view?.tag else { return }
         let x = isSectionExpanded[section]
+        
         isSectionExpanded.removeAll()
+        
         for _ in 0..<allTasks.count {
             isSectionExpanded.append(false)
         }
+        
         isSectionExpanded[section] = !x // Toggle expanded/collapsed state
+        
         let indexSet = IndexSet(integer: section)
+        
         if allTasks[section].subtasks.count == 0 {
             displayMessage(title: "No subtasks", message: "There are no subtasks for this task")
         }
+        
         tableView.reloadData()
-        //tableView.reloadSections(indexSet, with: .automatic) // Update table view display
    }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "SubtaskTableViewCell")
-//        var content = cell?.defaultContentConfiguration()
-//        content?.text = allTasks[indexPath.section].subtasks[indexPath.row].name
-//        cell?.contentConfiguration = content
-//        return cell!
-    
-//        if indexPath.row == expandedRowIndex {
-//            let taskCell = tableView.dequeueReusableCell(withIdentifier: "ExpandedTaskTableViewCell", for: indexPath) as! ExpandedTaskTableViewCell
-//            // Configure the expanded cell
-//            var content = taskCell.defaultContentConfiguration()
-//            let task = allTasks[indexPath.row]
-//            taskCell.subTasks = task.subtasks
-//            taskCell.innerTableView.reloadData()
-//            //create subtask table view controller
-//            //fetch subtasks and place into table view
-//
-//            taskCell.contentConfiguration = content
-//
-//
-//            return taskCell
-//        } else {
-        
+
+        // Cell for subtasks
         let taskCell = tableView.dequeueReusableCell(withIdentifier: "SubtaskTableViewCell", for: indexPath) as! SubtaskTableViewCell
-        // Configure the main cell
-        
-        //return subtask cell
-        //create subtask cell class + maybe get rid of expanded view cell class
-        //clicking on task cell will expand the subtask cells
-        
+       
+     
+        // Dictate color of cell background
         if allTasks[indexPath.section].subtasks[indexPath.row].check == true {
+            // Subtasks moving have been disabled for causing bugs
 //            let mover = allTasks.remove(at: indexPath.row)
 //            let numberOfRows = tableView.numberOfRows(inSection: indexPath.section)
 //            let lastIndexPath = IndexPath(row: numberOfRows - 1, section: indexPath.section)
@@ -348,27 +330,18 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
 
         taskCell.checkbox.isSelected = task.check ?? false
     
-
-
-        //taskCell.isExpanded = cells[indexPath.row].isExpanded
-
-       
-
         return taskCell
             
-        
-        
     }	
     
     @objc func editButtonTapped(_ sender: UIButton) {
+        // Edit button is tapped
         let buttonPath = sender.tag
         
-        
+        // Assign task that is to be edited
         taskEditing = allTasks[buttonPath]
         
-        print(taskEditing.name)
         performSegue(withIdentifier: "editTaskSegue", sender: sender)
-        
         
     }
     
@@ -395,32 +368,10 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
             databaseController?.deleteSubtask(subtask: subtask, task: task, taskRow: indexPath.row)
         }
     }
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
-        
-//        if indexPath.row == expandedRowIndex {
-//            expandedRowIndex = -1 // Collapse the cell
-//        } else {
-//            expandedRowIndex = indexPath.row // Expand the cell
-//        }
-//
-//
-//
-//        cells[indexPath.row].isExpanded.toggle()
-//
-//        tableView.reloadRows(at: [indexPath], with: .automatic)
-    }
     
     
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if indexPath.row == expandedRowIndex && cells[indexPath.row].isExpanded {
-//            // Return the expanded height
-//            return 200
-//        } else {
-//            // Return the collapsed height
-//            return 44
-//        }
         return 44
     }
     
@@ -451,6 +402,7 @@ class DailyTaskTableViewController: UITableViewController, DatabaseListener, UIT
    
     // MARK: - UITableViewDragDelegate
     
+    //Drag for subtasks is possible, but may cause bugs
      func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
          let dragItem = UIDragItem(itemProvider: NSItemProvider())
          dragItem.localObject = indexPath

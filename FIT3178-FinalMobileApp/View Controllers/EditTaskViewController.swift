@@ -29,7 +29,6 @@ class EditTaskViewController: UIViewController, UITableViewDelegate, UITableView
         subTaskTableView.delegate = self
         ogTask = taskEditing
         
-        
     }
     
 
@@ -63,6 +62,7 @@ class EditTaskViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @IBAction func addSubtask(_ sender: Any) {
+        // Adds subtask to existing subtasks
         guard let name = subtaskName.text
         else {
             return
@@ -110,8 +110,7 @@ class EditTaskViewController: UIViewController, UITableViewDelegate, UITableView
     
     //textfield delegate methods
     func textFieldDidEndEditing(_ textField: UITextField) {
-        // The text field has finished editing
-        // You can perform any desired actions or updates here
+        // After text is finished editing, will save new text in subtask name
         taskEditing.subtasks[textField.tag].name = textField.text
         subTaskTableView.reloadData()
         
@@ -150,6 +149,7 @@ class EditTaskViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Displays existing subtasks for task and also new subtasks that have been created
         let cell = tableView.dequeueReusableCell(withIdentifier: "editSubTaskCell", for: indexPath) as! EditableTableViewCell
         let subtask = taskEditing.subtasks[indexPath.row]
         cell.editedTask = subtask
