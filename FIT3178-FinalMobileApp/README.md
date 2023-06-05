@@ -66,6 +66,15 @@ It's important to note that when using updateData, it performs a partial update,
 
 Additionally, be cautious when using updateData with arrays because it replaces the entire array with the new value. If you want to add or remove elements from the array without replacing it entirely, consider using the FieldValue.arrayUnion() and FieldValue.arrayRemove() methods, as explained in the previous response.
 
-Remember to have the necessary Firebase Firestore dependencies and ensure that you have initialized Firebase in your project before using the updateData method. <br>
+Remember to have the necessary Firebase Firestore dependencies and ensure that you have initialized Firebase in your project before using the updateData method. This was also used to gauge a better idea on how to update information using FireBase<br>
 
-Other Prompts and outputs were used, although they follow the same instances as shown above <br>
+List of other prompts:
+- "Missing argument for parameter 'from' in call where from is of Decoder type in swift"
+- "how to create a segue to a view controller from a UIbutton programatically"
+- "button isn't showing up when doing contentView.addSubview"
+- "how can I make the table view controller cells draggable"
+- "how can you update a document from a collection reference firebase"
+- "got this error /Volumes/mcou0008/Documents/FIT3178/FIT3178-FinalMobileApp/FIT3178-FinalMobileApp/Base.lproj/Main.storyboard The subtaskTextField outlet from the EditTaskViewController to the UITextField is invalid. Outlets cannot be connected to repeating content."
+
+For prompts that concern errors in the code, instructions given from the output was likely followed to resolve the issue. If a prompt concerned implementation and provided code, the output was modified to suit the existing code.<br>
+
